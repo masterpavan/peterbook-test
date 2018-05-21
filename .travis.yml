@@ -7,10 +7,12 @@ cache:
     - functions/node_modules
     - build
 script: 
- - cd functions && npm install
  - npm run build
  - echo "code deploy"
 install: 
+ - npm install
+ - ls
+ - cd functions
  - npm install
 deploy:
   provider: firebase
