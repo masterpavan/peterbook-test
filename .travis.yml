@@ -10,6 +10,7 @@ script:
  - echo "code deploy"
 install: 
  - npm install
+ - npm install functions
 deploy:
   provider: firebase
   skip_cleanup: true
