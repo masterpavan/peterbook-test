@@ -12,7 +12,7 @@ script:
 install: 
  - npm install
  - ls
- - cd functions
+ - cd ./functions
  - npm install
 deploy:
   provider: firebase
