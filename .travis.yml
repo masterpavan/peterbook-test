@@ -4,6 +4,7 @@ node_js:
 cache:
   directories:
     - node_modules
+    - build
 script: 
  - npm run build
  - echo "code deploy"
@@ -11,6 +12,7 @@ install:
  - npm install
 deploy:
   provider: firebase
+  skip_cleanup: true
   token:
     secure: lek5J83IGJ7dzkqgqPrYacMYGdtqXAP+E3/6JEkMsKbi1KrTyGCMQj4dQyGCKKFv8dkbZ4hkAoAADXIUA/iO26BXXuWcOaUhY+EZJdg4u6y8V7locI9f1woAgaZDvK9Kl5TWHUTIDIZSL2P9Fow/oOzFQrFIXux9osyq163pEag4RIvJNgVGEcwnyiUYogV9N4LStzkCH2GGnjxgn5+BZLUihT/Aw+HTjs8sA9GE2DLONEB5cemfQ1hpSPS+kr0fFKr4/MVNB+IB5S5HtlkXdy82EZROcsMzBsDcBec3NnPtO54f8xdnD5vJO/BtsvwiC8BjoKmdb8XdABZjz9U7CNjjK92Z1OLVCsfVXDKSQ/UvItTHlR8atU+dDHD5YA6cnUKaQF+t34lMJGYZay+SiadsO9Vz6f8McVNlrbHXJS2TSI4ELJjFUu7PJLkbenU5G4b2c0iIdbl2Nnw4u2efluuaLiYRo3XaWftXCnK1jsk3Ur4gTrIu7nVCMb6Tp2rpotfWiDV644aHTl4U4ZRlFAgKQ5w4QJW6SUmmTmt+t/TCiq8j7PqvOzxHuceYRFRJXl8/f0KPkKIGg/kbAiBHOZCdntspFRlqlrfKiwdXDCmP9PZFAuZMtRxxkWQmU6Zfy19U2g+OvpdE7QGiq9B4K3i2hMfEm7zB8VZci2Ex+CM=
 
