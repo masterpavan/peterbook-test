@@ -21,7 +21,7 @@ import { Manager, Target, Popper } from 'react-popper'
 import Grow from 'material-ui/transitions/Grow'
 import ClickAwayListener from 'material-ui/utils/ClickAwayListener'
 import classNames from 'classnames'
-import IconButtonElement from 'layouts/IconButtonElement'
+import IconButtonElement from '../../layouts/iconButtonElement/IconButtonElementComponent'
 import Dialog, {
   DialogActions,
   DialogContent,
