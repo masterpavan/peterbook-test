@@ -7,9 +7,6 @@ cache:
     - functions/node_modules
     - build
 script: 
- - ls
- - cd $TRAVIS_BUILD_DIR/functions/
- - npm install
  - npm run build
  - echo "code deploy"
 install: 
