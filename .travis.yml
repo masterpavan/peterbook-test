@@ -12,7 +12,7 @@ script:
 install: 
  - npm install
  - ls
- - cd /home/travis/build/masterpavan/peterbook-test/functions/
+ - cd $TRAVIS_BUILD_DIR/functions/
  - npm install
 deploy:
   provider: firebase
