@@ -112,7 +112,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Qolzam/react-social-network.git"
+    "url": "git+https://github.com/masterpavan/peterbook-test"
   },
   "keywords": [
     "react",
@@ -128,6 +128,6 @@
     "mobile"
   ],
   "bugs": {
-    "url": "https://github.com/Qolzam/react-social-network/issues"
+    "url": "https://github.com/masterpavan/peterbook-test/issues"
   }
 }
