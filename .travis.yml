@@ -1,3 +1,10 @@
+language: node_js
+node_js:
+ - "7"
+script: 
+ - echo "code deploy"
+install: 
+ - npm install
 deploy:
   provider: firebase
   token:
