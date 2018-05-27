@@ -1,3 +1,3 @@
 export const environment = {
-  appName : 'Green Social'
+  appName : 'Peterbook'
 }

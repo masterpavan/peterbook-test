@@ -71,7 +71,7 @@ export class UserAvatarComponent extends Component<IUserAvatarComponentProps,IUs
       <div style={{display: 'inherit'}}>
        {(fileName && fileName !== '' && fileName !== 'noImage' )
        ? ( <Avatar src={fileName ? fileName : ' '} style={{...style, backgroundColor: '#ffffff', width: size || 36, height: size || 36}} onClick={onClick} />)
-        : (<Avatar style={{...style, backgroundColor: '#00bcd4', width: size || 36, height: size || 36}} onClick={onClick}>{fullName ? fullName.slice(0, 1) : ''}</Avatar>) }
+        : (<Avatar style={{...style, backgroundColor: '#6d84b4', width: size || 36, height: size || 36}} onClick={onClick}>{fullName ? fullName.slice(0, 1) : ''}</Avatar>) }
       </div>
     )
   }

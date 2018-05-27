@@ -3,6 +3,6 @@ export enum FeedType {
     Happy = 'Happy',
     Acceptable = 'Acceptable',
     Sad = 'Sad',
-    Bug = 'Bug'
+    Bug = 'Bug',
 
 }

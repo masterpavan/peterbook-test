@@ -16,7 +16,7 @@ export const environment = {
     defaultLanguage: LanguageType.English
   },
   theme: {
-    primaryColor: '#00b1b3',
-    secondaryColor: '#4d545d'
+    primaryColor: '#ffffff',
+    secondaryColor: '#3B5998'
   }
 }
