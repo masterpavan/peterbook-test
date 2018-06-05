@@ -12,7 +12,7 @@ script:
 install: 
  - npm install
  - npm install functions
- - npm install tslint typescripti@2.8.3
+ - npm install tslint typescript@2.8.3
 deploy:
   provider: firebase
   skip_cleanup: true
