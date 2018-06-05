@@ -1,3 +1,6 @@
+Travis Build Status:
+[![Build Status](https://travis-ci.org/masterpavan/peterbook-test.svg?branch=master)](https://travis-ci.org/masterpavan/peterbook-test)
+
 <!-- Logo -->
 <p align="center">
   <a href="https://github.com/Qolzam/react-social-network">

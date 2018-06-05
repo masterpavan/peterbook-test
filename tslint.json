@@ -10,7 +10,7 @@
         "curly": true,
         "eofline": false,
         "forin": true,
-        "ter-indent": [
+        "indent": [
             true,
             2,
             {
@@ -19,7 +19,6 @@
         ],
         "interface-name": [false, "always-prefix"],
         "jsdoc-format": true,
-        "no-extra-boolean-cast": true,
         "jsx-self-close": false,
         "jsx-no-lambda": false,
         "jsx-no-multiline-js": false,

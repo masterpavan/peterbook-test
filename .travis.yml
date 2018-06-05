@@ -6,11 +6,13 @@ cache:
     - node_modules
     - build
 script: 
+ - tslint --project tsconfig.json
  - npm run build
  - echo "code deploy"
 install: 
  - npm install
  - npm install functions
+ - npm install tslint typescript
 deploy:
   provider: firebase
   skip_cleanup: true
