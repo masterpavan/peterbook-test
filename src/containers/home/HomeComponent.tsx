@@ -56,6 +56,8 @@ import {
 
 import { IHomeComponentProps } from './IHomeComponentProps'
 import { IHomeComponentState } from './IHomeComponentState'
+import Slider from 'rc-slider'
+import 'rc-slider/assets/index.css'
 
 const drawerWidth = 220
 const styles = (theme: any) => ({
@@ -92,13 +94,15 @@ const styles = (theme: any) => ({
       width: drawerWidth,
       height: '100%',
     },
-    top: 70,
-    backgroundColor: '#fafafa',
-    borderRight: 0
+    top: 104,
+    backgroundColor: '#fff',
+    borderRight: '1px solid #cdcdcd',
+      boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2)'
   },
   menu: {
     height: '100%',
   },
+    slider: { zIndex: '9999' },
   content: {
     backgroundColor: 'transparent',
     width: '100%',
@@ -108,11 +112,11 @@ const styles = (theme: any) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    height: 'calc(100% - 56px)',
-    marginTop: 56,
+    height: 'calc(100% - 96px)',
+    marginTop: 96,
     [theme.breakpoints.up('sm')]: {
-      height: 'calc(100% - 64px)',
-      marginTop: 64,
+      height: 'calc(100% - 104px)',
+      marginTop: 104,
     },
   },
   'content-left': {
@@ -241,6 +245,7 @@ export class HomeComponent extends Component<IHomeComponentProps, IHomeComponent
     return (
       <div className={classes.root}>
         <div className={classes.appFrame}>
+
           <HomeHeader onToggleDrawer={this.handleDrawerToggle} drawerStatus={this.state.drawerOpen} />
           <Hidden mdUp>
             <Drawer
