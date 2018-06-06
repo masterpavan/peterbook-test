@@ -25,7 +25,7 @@ import './styles/app.css'
 /**
  * Execute startup functions
  */
-import './socialEngine'
+import "./socialEngine"
 import rootSaga from 'store/sagas/rootSaga'
 
 configureStore.runSaga(rootSaga)
