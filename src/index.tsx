@@ -20,7 +20,7 @@ import * as globalActions from 'store/actions/globalActions'
 import Master from 'containers/master'
 // import { App } from 'components/AWS'
 // App css
-import "./styles/app.css"
+import './styles/app.css'
 
 /**
  * Execute startup functions
