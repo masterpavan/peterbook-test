@@ -1,0 +1,122 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">// In production, we register a service worker to serve assets from local cache.</span><span class="WHIT">
+<span class='line'>  2</span> 
+<span class='line'>  3</span> </span><span class="COMM">// This lets the app load faster on subsequent visits in production, and gives</span><span class="WHIT">
+<span class='line'>  4</span> </span><span class="COMM">// it offline capabilities. However, it also means that developers (and users)</span><span class="WHIT">
+<span class='line'>  5</span> </span><span class="COMM">// will only see deployed updates on the "N+1" visit to a page, since previously</span><span class="WHIT">
+<span class='line'>  6</span> </span><span class="COMM">// cached resources are updated in the background.</span><span class="WHIT">
+<span class='line'>  7</span> 
+<span class='line'>  8</span> </span><span class="COMM">// To learn more about the benefits of this model, read https://goo.gl/KwvDNy.</span><span class="WHIT">
+<span class='line'>  9</span> </span><span class="COMM">// This link also includes instructions on opting out of this behavior.</span><span class="WHIT">
+<span class='line'> 10</span> 
+<span class='line'> 11</span> </span><span class="KEYW">const</span><span class="WHIT"> </span><span class="NAME">isLocalhost</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Boolean</span><span class="PUNC">(</span><span class="WHIT">
+<span class='line'> 12</span> </span><span class="WHIT">  </span><span class="NAME">window.location.hostname</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'localhost'</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="WHIT">    </span><span class="COMM">// [::1] is the IPv6 localhost address.</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="WHIT">    </span><span class="NAME">window.location.hostname</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'[::1]'</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="WHIT">    </span><span class="COMM">// 127.0.0.1/8 is considered localhost for IPv4.</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="WHIT">    </span><span class="NAME">window.location.hostname.match</span><span class="PUNC">(</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="WHIT">      </span><span class="REGX">/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="WHIT">    </span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 20</span> 
+<span class='line'> 21</span> </span><span class="COMM">/**
+<span class='line'> 22</span>  * register the url
+<span class='line'> 23</span>  */</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="NAME">export</span><span class="WHIT"> </span><span class="KEYW">default</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">register</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">  </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">process.env.NODE_ENV</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'production'</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="STRN">'serviceWorker'</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">navigator</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">    </span><span class="COMM">// The URL constructor is available in all browsers that support SW.</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="WHIT">    </span><span class="KEYW">const</span><span class="WHIT"> </span><span class="NAME">publicUrl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">URL</span><span class="PUNC">(</span><span class="NAME">process.env.PUBLIC_URL</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">window.location</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 28</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">publicUrl.origin</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NAME">window.location.origin</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="WHIT">      </span><span class="COMM">// Our service worker won't work if PUBLIC_URL is on a different origin</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">      </span><span class="COMM">// from what our page is served on. This might happen if a CDN is used to</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">      </span><span class="COMM">// serve assets; see https://github.com/facebookincubator/create-react-app/issues/2374</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="WHIT">      </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 34</span> 
+<span class='line'> 35</span> </span><span class="WHIT">    </span><span class="NAME">window.addEventListener</span><span class="PUNC">(</span><span class="STRN">'load'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="PUNC">></span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">      </span><span class="KEYW">const</span><span class="WHIT"> </span><span class="NAME">swUrl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="TOKN">`</span><span class="NAME">$</span><span class="PUNC">{</span><span class="NAME">process.env.PUBLIC_URL</span><span class="PUNC">}</span><span class="REGX">/service-worker.js`;
+<span class='line'> 37</span> 
+<span class='line'> 38</span>       if (isLocalhost) {
+<span class='line'> 39</span>         /</span><span class="REGX">/ This is running on localhost. Lets check if a service worker still exists or not.
+<span class='line'> 40</span>         checkValidServiceWorker(swUrl);
+<span class='line'> 41</span>       } else {
+<span class='line'> 42</span>         /</span><span class="REGX">/ Is not local host. Just register service worker
+<span class='line'> 43</span>         registerValidSW(swUrl);
+<span class='line'> 44</span>       }
+<span class='line'> 45</span>     });
+<span class='line'> 46</span>   }
+<span class='line'> 47</span> }
+<span class='line'> 48</span> 
+<span class='line'> 49</span> /</span><span class="PUNC">*</span><span class="PUNC">*</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="NAME">validate</span><span class="WHIT"> </span><span class="NAME">the</span><span class="WHIT"> </span><span class="NAME">url</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="TOKN">@</span><span class="NAME">param</span><span class="WHIT"> </span><span class="NAME">swUrl</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="NAME">string</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">url</span><span class="WHIT"> </span><span class="NAME">to</span><span class="WHIT"> </span><span class="NAME">validate</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT"> </span><span class="PUNC">*</span><span class="REGX">/
+<span class='line'> 53</span> function registerValidSW(swUrl) {
+<span class='line'> 54</span>   navigator.serviceWorker
+<span class='line'> 55</span>     .register(swUrl)
+<span class='line'> 56</span>     .then(registration => {
+<span class='line'> 57</span>       registration.onupdatefound = () => {
+<span class='line'> 58</span>         const installingWorker = registration.installing;
+<span class='line'> 59</span>         installingWorker.onstatechange = () => {
+<span class='line'> 60</span>           if (installingWorker.state === 'installed') {
+<span class='line'> 61</span>             if (navigator.serviceWorker.controller) {
+<span class='line'> 62</span>               /</span><span class="REGX">/ At this point, the old content will have been purged and
+<span class='line'> 63</span>               /</span><span class="REGX">/ the fresh content will have been added to the cache.
+<span class='line'> 64</span>               /</span><span class="REGX">/ It's the perfect time to display a "New content is
+<span class='line'> 65</span>               /</span><span class="REGX">/ available; please refresh." message in your web app.
+<span class='line'> 66</span>               console.log('New content is available; please refresh.');
+<span class='line'> 67</span>             } else {
+<span class='line'> 68</span>               /</span><span class="REGX">/ At this point, everything has been precached.
+<span class='line'> 69</span>               /</span><span class="REGX">/ It's the perfect time to display a
+<span class='line'> 70</span>               /</span><span class="REGX">/ "Content is cached for offline use." message.
+<span class='line'> 71</span>               console.log('Content is cached for offline use.');
+<span class='line'> 72</span>             }
+<span class='line'> 73</span>           }
+<span class='line'> 74</span>         };
+<span class='line'> 75</span>       };
+<span class='line'> 76</span>     })
+<span class='line'> 77</span>     .catch(error => {
+<span class='line'> 78</span>       console.error('Error during service worker registration:', error);
+<span class='line'> 79</span>     });
+<span class='line'> 80</span> }
+<span class='line'> 81</span> 
+<span class='line'> 82</span> /</span><span class="PUNC">*</span><span class="PUNC">*</span><span class="WHIT">
+<span class='line'> 83</span> </span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="NAME">determine</span><span class="WHIT"> </span><span class="NAME">whether</span><span class="WHIT"> </span><span class="NAME">service</span><span class="WHIT"> </span><span class="NAME">worker</span><span class="WHIT"> </span><span class="NAME">is</span><span class="WHIT"> </span><span class="NAME">valid</span><span class="WHIT">
+<span class='line'> 84</span> </span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="TOKN">@</span><span class="NAME">param</span><span class="WHIT"> </span><span class="NAME">swUrl</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="NAME">string</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">url</span><span class="WHIT"> </span><span class="NAME">to</span><span class="WHIT"> </span><span class="NAME">validate</span><span class="WHIT">
+<span class='line'> 85</span> </span><span class="WHIT"> </span><span class="PUNC">*</span><span class="REGX">/
+<span class='line'> 86</span> function checkValidServiceWorker(swUrl) {
+<span class='line'> 87</span>   /</span><span class="REGX">/ Check if the service worker can be found. If it can't reload the page.
+<span class='line'> 88</span>   fetch(swUrl)
+<span class='line'> 89</span>     .then(response => {
+<span class='line'> 90</span>       /</span><span class="REGX">/ Ensure service worker exists, and that we really are getting a JS file.
+<span class='line'> 91</span>       if (
+<span class='line'> 92</span>         response.status === 404 ||
+<span class='line'> 93</span>         response.headers.get('content-type').indexOf('javascript') === -1
+<span class='line'> 94</span>       ) {
+<span class='line'> 95</span>         /</span><span class="REGX">/ No service worker found. Probably a different app. Reload the page.
+<span class='line'> 96</span>         navigator.serviceWorker.ready.then(registration => {
+<span class='line'> 97</span>           registration.unregister().then(() => {
+<span class='line'> 98</span>             window.location.reload();
+<span class='line'> 99</span>           });
+<span class='line'>100</span>         });
+<span class='line'>101</span>       } else {
+<span class='line'>102</span>         /</span><span class="REGX">/ Service worker found. Proceed as normal.
+<span class='line'>103</span>         registerValidSW(swUrl);
+<span class='line'>104</span>       }
+<span class='line'>105</span>     })
+<span class='line'>106</span>     .catch(() => {
+<span class='line'>107</span>       console.log(
+<span class='line'>108</span>         'No internet connection found. App is running in offline mode.'
+<span class='line'>109</span>       );
+<span class='line'>110</span>     });
+<span class='line'>111</span> }
+<span class='line'>112</span> 
+<span class='line'>113</span> /</span><span class="PUNC">*</span><span class="PUNC">*</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="NAME">close</span><span class="WHIT"> </span><span class="NAME">the</span><span class="WHIT"> </span><span class="NAME">service</span><span class="WHIT"> </span><span class="NAME">worker</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="WHIT"> </span><span class="PUNC">*</span><span class="TOKN"></span></pre></body></html>
