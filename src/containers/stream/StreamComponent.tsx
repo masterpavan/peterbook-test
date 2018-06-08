@@ -14,7 +14,6 @@ import { Map, List as ImuList } from 'immutable'
 
 // - Import app components
 import PostComponent from 'src/components/post'
-import AdvertisementComponent from 'src/components/advertisement'
 import PostWriteComponent from 'src/components/postWrite'
 import UserAvatarComponent from 'src/components/userAvatar'
 import LoadMoreProgressComponent from 'src/layouts/loadMoreProgress'
@@ -175,21 +174,7 @@ export class StreamComponent extends Component<IStreamComponentProps, IStreamCom
 
           </div>
         )
-
-        if ((index % 3) === 2) {
-            let advertisement: any = (
-                <div>
-                {index > 1 || (!postBack.divided && index > 0) ? <div style={{ height: '16px' }}></div> : ''}
-                  <AdvertisementComponent />
-                </div>
-            )
-            if ((index % 2) === 1 && postBack.divided) {
-              postBack.oddPostList.push(advertisement as never)
-            } else {
-              postBack.evenPostList.push(advertisement as never)
-            }
-        }
-
+        
         if ((index % 2) === 1 && postBack.divided) {
           postBack.oddPostList.push(newPost as never)
         } else {

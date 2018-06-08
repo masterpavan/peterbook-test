@@ -27,7 +27,6 @@ import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
 import Hidden from 'material-ui/Hidden'
 import MenuIcon from 'material-ui-icons/Menu'
-import SvgAccountBalance from 'material-ui-icons/AccountBalance'
 
 // - Import app components
 import Sidebar from 'src/components/sidebar'
@@ -239,14 +238,6 @@ export class HomeComponent extends Component<IHomeComponentProps, IHomeComponent
         </ListItemIcon>
         <ListItemText inset primary={translate!('sidebar.sendFeedback')} />
       </MenuItem>
-      <NavLink to='/subscribe'>
-        <MenuItem style={{ color: 'rgb(117, 117, 117)' }}>
-          <ListItemIcon>
-            <SvgAccountBalance />
-          </ListItemIcon>
-          <ListItemText inset primary={translate!('sidebar.subscribe')} />
-        </MenuItem>
-      </NavLink>
       </>
     )
 

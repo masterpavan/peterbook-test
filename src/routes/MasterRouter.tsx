@@ -35,10 +35,6 @@ const AsyncSetting = Loadable({
   loader: () => import('containers/setting'),
   loading: MasterLoadingComponent,
 })
-const AsyncSubscribe = Loadable({
-  loader: () => import('containers/subscribe'),
-  loading: MasterLoadingComponent,
-})
 
 /**
  * Master router
@@ -52,7 +48,6 @@ export class MasterRouter extends Component<IRouterProps, any> {
           <Route path='/signup' component={AsyncSignup} />
           <Route path='/emailVerification' component={AsyncEmailVerification} />
           <Route path='/settings' component={AsyncSetting} />
-          <Route path='/subscribe' component={AsyncSubscribe} />
           <Route path='/resetPassword' component={AsyncResetPassword} />
           <PublicRoute path='/login' component={<AsyncLogin />} />
           <Route render={() => <AsyncHome uid={data.uid} />} />
