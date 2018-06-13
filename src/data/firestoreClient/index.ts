@@ -23,6 +23,7 @@ export let storageRef = firebase.storage().ref()
 
 // Initialize Cloud Firestore through Firebase
 export const db = firebase.firestore()
+export const fb = firebase
 
 // - Database authorize
 export let firebaseAuth = firebase.auth
