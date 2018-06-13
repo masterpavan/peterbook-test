@@ -127,7 +127,7 @@ export class ImageGalleryService implements IImageGalleryService {
             imageIdArray.push(result.id)
           })
         })
-        if(next){
+        if (next) {
           next(imageIdArray)
         }
         return unsubscribe
