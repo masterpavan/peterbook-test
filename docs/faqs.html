@@ -53,141 +53,219 @@
         <div class="doc-body">
           <div class="doc-content">
             <div class="content-inner">
-
               <section id="code-section" class="doc-section">
-                <h2 class="section-title">Code</h2>
-                <div class="section-block">
-                </div><!--//section-block-->
-                <div id="html" class="section-block">
+                <h2 class="section-title">Editing the UI</h2>
 
-                  <div class="code-block">
-                    <h6>HTML Code Example</h6>
-                    <pre><code class="language-markup">&lt;!DOCTYPE html&gt; 
-&lt;html lang=&quot;en&quot;&gt; 
-    ...
-    &lt;div class=&quot;jumbotron&quot;&gt; 
-  &lt;h1&gt;Hello, world!&lt;/h1&gt; 
-  &lt;p&gt;...&lt;/p&gt; 
-  &lt;p&gt;&lt;a class=&quot;btn btn-primary btn-lg&quot; href=&quot;#&quot; role=&quot;button&quot;&gt;Learn more&lt;/a&gt;&lt;/p&gt; 
-    &lt;/div&gt;
-    &lt;div class=&quot;jumbotron&quot;&gt; 
-  &lt;h1&gt;Hello, world!&lt;/h1&gt; 
-  &lt;p&gt;...&lt;/p&gt; 
-  &lt;p&gt;&lt;a class=&quot;btn btn-primary btn-lg&quot; href=&quot;#&quot; role=&quot;button&quot;&gt;Learn more&lt;/a&gt;&lt;/p&gt; 
-    &lt;/div&gt;
-    ...
-&lt;/html&gt;</code></pre>
-                  </div><!--//code-block-->
-                </div><!--//section-block-->
-                <div id="css" class="section-block">
-                  <div class="code-block">
-                    <h6>CSS Code Example</h6>
-                    <pre><code class="language-css">/* ======= Base Styling ======= */
-body {
-    font-family: 'Open Sans', arial, sans-serif; 
-    color: #333; 
-    font-size: 16px; 
-    -webkit-font-smoothing: antialiased; 
-    -moz-osx-font-smoothing: grayscale; 
-}</code></pre>
-                  </div><!--//code-block-->
-                </div><!--//section-block-->
-                <div id="less" class="section-block">
-                  <div class="code-block">
-                    <h6>LESS Code Example</h6>
-                    <pre><code class="language-css">/*
-* Template Name: prettyDocs - Responsive Website Template for documentations 
-* Version: 1.0 
-* Author: Xiaoying Riley 
-* License: Creative Commons Attribution 3.0 License 
-* Twitter: @3rdwave_themes 
-* Website: http://themes.3rdwavemedia.com/ 
-*/ 
-@import &quot;mixins.less&quot;; 
-@import &quot;theme-default.less&quot;; 
-@import &quot;base.less&quot;; 
-@import &quot;doc.less&quot;; 
-@import &quot;landing.less&quot;; 
-@import &quot;responsive.less&quot;;</code></pre>
-                  </div><!--//code-block-->
-                </div><!--//section-block-->
-                <div id="sass" class="section-block">
-                  <div class="code-block">
-                    <h6>Sass Code Example</h6>
-                    <pre><code class="language-sass">#main {
-    $width: 5em; 
-    width: $width; 
-}
 
-#sidebar { 
-    width: $width; 
-}</code></pre>
+                <div id="primary" class="section-block">
+                  <div class="code-block">
+                    <h6>Editing Primary Colors of the App</h6>
+                    <p>
+                    You can find the primary application colors in two files: 
+                    <p style="font-family:veranda;">	
+                    <code>src/config/environment.dev.ts</code>
+                    </p>
+                    <p style="font-family:veranda;">	
+                    <code>src/config/environment.prod.ts</code>
+                    </p>
+                    And at about lines 19 and 20 you should edit the primary and secondary colors.
+                    </p>
+                    <pre><code class="language-javascript">theme: {
+    primaryColor: '#ffffff',//colors based on Facebook pallete
+    secondaryColor: '#3B5998'
+}</code></pre></div><!--//code-block--></div><!--//section-block-->
+
+
+                <div id="sidemenu" class="section-block">
+                  <div class="code-block">
+                    <h6>Editing the Sidebar Menu</h6>
+                      <div class="screenshot-holder">
+                        <a href="assets/images/sidebar.png" data-title="Dashboard - Web Hosting" data-toggle="lightbox"><img class="img-responsive" src="assets/images/sidebar.png" alt="screenshot" /></a>
+                      </div> 
+                    <p>
+                    You can find the code the sidebar in: 
+                    <p style="font-family:veranda;">	
+                    <code>src/containers/home/HomeComponent.tsx</code>
+                    </p>
+                    <p>
+                    For example, we added in a link to a page where the user can subscribe to get an ad-free experience.
+                    To do this, we added this snippet of code starting on line 248:
+                    </p>
+                    <pre><code class="language-markup">248  &#x3C;NavLink to=&#x27;/subscribe&#x27;&#x3E;
+248    &#x3C;MenuItem style={{ color: &#x27;rgb(117, 117, 117,)&#x27; }}&#x3E;
+250      &#x3C;ListItemIcon&#x3E;
+251        &#x3C;SvgAccountBalance/&#x3E;
+252      &#x3C;/ListItemIcon&#x3E;
+253      &#x3C;ListItemText inset primary={translate!(&#x27;sidebar.subscribe&#x27;)} /&#x3E;
+254    &#x3C;/MenuItem&#x3E;
+255  &#x3C;/NavLink&#x3E;</code></pre>
+                    The icon is imported from the material-ui, which can be found in the <code>node_modules</code> part
+                    of the file directory. As for the text, notice line 253 we pull from 'sidebar.subscribe' to get the
+                    text. This comes from the file <code>src/locale/en.json</code> which contains all the "static" text
+                    for the app. This is the text that doesn't change within the app, like menu titles.
                   </div><!--//code-block-->
                 </div><!--//section-block-->
-                <div id="javascript" class="section-block">
+
+                <div id="advertisements" class="section-block">
                   <div class="code-block">
-                    <h6>JavaScript Code Example</h6>
+                    <h6>Editing the Advertisements</h6>
+                    <p>
+                    You can find the primary application colors in two files: 
+                    <p style="font-family:veranda;">	
+                    <code>src/config/environment.dev.ts</code>
+                    </p>
+                    <p style="font-family:veranda;">	
+                    <code>src/config/environment.prod.ts</code>
+                    </p>
+                    And at about lines 19 and 20 you should edit the primary and secondary colors
+                    </p>
                     <pre><code class="language-javascript">&lt;script&gt; 
-    function myFunction(a, b) { 
-  return a * b; 
-    } 
-
-    document.getElementById(&quot;demo&quot;).innerHTML = myFunction(4, 3); 
+  theme: {
+    primaryColor: '#ffffff',//colors based on Facebook pallete
+    secondaryColor: '#3B5998'
+  }
 &lt;/script&gt;</code></pre>
                   </div><!--//code-block-->
                 </div><!--//section-block-->
-                <div id="python" class="section-block">
+
+
+                <div id="javascript" class="section-block">
                   <div class="code-block">
-                    <h6>Python Code Example</h6>
-                    <pre><code class="language-python">&gt;&gt;&gt; x = int(input(&quot;
-Please enter an integer: &quot;)) Please enter an integer: 42 
-&gt;&gt;&gt; if x &lt; 0: 
-... x = 0 
-... print('Negative changed to zero') 
-... elif x == 0: 
-... print('Zero') 
-... elif x == 1: 
-... print('Single') 
-... else: 
-... print('More') 
-... More</code></pre>
+                    <h6>Editing Primary Colors of the App</h6>
+                    <p>
+                    You can find the primary application colors in two files: 
+                    <p style="font-family:veranda;">	
+                    <code>src/config/environment.dev.ts</code>
+                    </p>
+                    <p style="font-family:veranda;">	
+                    <code>src/config/environment.prod.ts</code>
+                    </p>
+                    And at about lines 19 and 20 you should edit the primary and secondary colors
+                    </p>
+                    <pre><code class="language-javascript">&lt;script&gt; 
+  theme: {
+    primaryColor: '#ffffff',//colors based on Facebook pallete
+    secondaryColor: '#3B5998'
+  }
+&lt;/script&gt;</code></pre>
                   </div><!--//code-block-->
                 </div><!--//section-block-->
-                <div id="php" class="section-block">
-                  <div class="code-block">
-                    <h6>PHP Code Example</h6>
-                    <pre><code class="language-php">&lt;?php 
-$txt = &quot;Hello world!&quot;; 
-$x = 5; 
-$y = 10.5; 
 
-echo $txt; 
-echo &quot;&lt;br&gt;&quot;; 
-echo $x; 
-echo &quot;&lt;br&gt;&quot;; 
-echo $y; 
-?&gt;</code></pre>
+                <div id="javascript" class="section-block">
+                  <div class="code-block">
+                    <h6>Editing Primary Colors of the App</h6>
+                    <p>
+                    You can find the primary application colors in two files: 
+                    <p style="font-family:veranda;">	
+                    <code>src/config/environment.dev.ts</code>
+                    </p>
+                    <p style="font-family:veranda;">	
+                    <code>src/config/environment.prod.ts</code>
+                    </p>
+                    And at about lines 19 and 20 you should edit the primary and secondary colors
+                    </p>
+                    <pre><code class="language-javascript">&lt;script&gt; 
+  theme: {
+    primaryColor: '#ffffff',//colors based on Facebook pallete
+    secondaryColor: '#3B5998'
+  }
+&lt;/script&gt;</code></pre>
                   </div><!--//code-block-->
                 </div><!--//section-block-->
-                <div id="handlebars" class="section-block">
-                  <div class="code-block">
-                    <h6>Handlebars Code Example</h6>
-                    <pre><code class="language-handlebars">Handlebars.registerHelper('list', function(items, options) { 
-  var out = &quot;&lt;ul&gt;&quot;; 
 
-  for(var i=0, l=items.length; i&lt;l; i++) { 
-    out = out + &quot;&lt;li&gt;&quot; + options.fn(items[i]) + &quot;&lt;/li&gt;&quot;; 
-  } 
 
-  return out + &quot;&lt;/ul&gt;&quot;; 
-});</code></pre>
-                  </div><!--//code-block-->
+                <div id="javascript" class="section-block">
                   <div class="code-block">
-                    <h6>Git Code Example</h6>
-                    <pre><code class="language-git">$ git add Documentation.txt</code></pre>
+                    <h6>Editing Primary Colors of the App</h6>
+                    <p>
+                    You can find the primary application colors in two files: 
+                    <p style="font-family:veranda;">	
+                    <code>src/config/environment.dev.ts</code>
+                    </p>
+                    <p style="font-family:veranda;">	
+                    <code>src/config/environment.prod.ts</code>
+                    </p>
+                    And at about lines 19 and 20 you should edit the primary and secondary colors
+                    </p>
+                    <pre><code class="language-javascript">
+  theme: {
+    primaryColor: '#ffffff',//colors based on Facebook pallete
+    secondaryColor: '#3B5998'
+  }
+                    </code></pre>
                   </div><!--//code-block-->
                 </div><!--//section-block-->
+
+
+                <div id="javascript" class="section-block">
+                  <div class="code-block">
+                    <h6>Editing Primary Colors of the App</h6>
+                    <p>
+                    You can find the primary application colors in two files: 
+                    <p style="font-family:veranda;">	
+                    <code>src/config/environment.dev.ts</code>
+                    </p>
+                    <p style="font-family:veranda;">	
+                    <code>src/config/environment.prod.ts</code>
+                    </p>
+                    And at about lines 19 and 20 you should edit the primary and secondary colors
+                    </p>
+                    <pre><code class="language-javascript">&lt;script&gt; 
+  theme: {
+    primaryColor: '#ffffff',//colors based on Facebook pallete
+    secondaryColor: '#3B5998'
+  }
+&lt;/script&gt;</code></pre>
+                  </div><!--//code-block-->
+                </div><!--//section-block-->
+
+                <div id="javascript" class="section-block">
+                  <div class="code-block">
+                    <h6>Editing Primary Colors of the App</h6>
+                    <p>
+                    You can find the primary application colors in two files: 
+                    <p style="font-family:veranda;">	
+                    <code>src/config/environment.dev.ts</code>
+                    </p>
+                    <p style="font-family:veranda;">	
+                    <code>src/config/environment.prod.ts</code>
+                    </p>
+                    And at about lines 19 and 20 you should edit the primary and secondary colors
+                    </p>
+                    <pre><code class="language-javascript">&lt;script&gt; 
+  theme: {
+    primaryColor: '#ffffff',//colors based on Facebook pallete
+    secondaryColor: '#3B5998'
+  }
+&lt;/script&gt;</code></pre>
+                  </div><!--//code-block-->
+                </div><!--//section-block-->
+
+                <div id="javascript" class="section-block">
+                  <div class="code-block">
+                    <h6>Editing Primary Colors of the App</h6>
+                    <p>
+                    You can find the primary application colors in two files: 
+                    <p style="font-family:veranda;">	
+                    <code>src/config/environment.dev.ts</code>
+                    </p>
+                    <p style="font-family:veranda;">	
+                    <code>src/config/environment.prod.ts</code>
+                    </p>
+                    And at about lines 19 and 20 you should edit the primary and secondary colors
+                    </p>
+                    <pre><code class="language-javascript">&lt;script&gt; 
+  theme: {
+    primaryColor: '#ffffff',//colors based on Facebook pallete
+    secondaryColor: '#3B5998'
+  }
+&lt;/script&gt;</code></pre>
+                  </div><!--//code-block-->
+                </div><!--//section-block-->
+
               </section><!--//doc-section-->
+
+
               <section id="callouts-section" class="doc-section">
                 <h2 class="section-title">Callouts</h2>
                 <div class="section-block">
@@ -417,23 +495,19 @@ echo $y;
           <div class="doc-sidebar hidden-xs">
             <nav id="doc-nav">
               <ul id="doc-menu" class="nav doc-menu" data-spy="affix">
-                <a class="scrollto" href="#code-section">Code</a>
+                <a class="scrollto" href="#code-section">Editing the UI</a>
                 <ul class="nav doc-sub-menu">
-                  <li><a class="scrollto" href="#html">HTML</a></li>
-                  <li><a class="scrollto" href="#css">CSS</a></li>
-                  <li><a class="scrollto" href="#less">LESS</a></li>
-                  <li><a class="scrollto" href="#sass">Sass</a></li>
-                  <li><a class="scrollto" href="#javascript">JavaScript</a></li>
-                  <li><a class="scrollto" href="#python">Python</a></li>
-                  <li><a class="scrollto" href="#php">PHP</a></li>
-                  <li><a class="scrollto" href="#handlebars">Handlebars</a></li>
+                  <li><a class="scrollto" href="#primary">Editing Primary Colors</a></li>
+                  <li><a class="scrollto" href="#sidemenu">Editing the Sidebar Menu</a></li>
                 </ul><!--//nav-->
                 </li>
-                <li><a class="scrollto" href="#callouts-section">Callouts</a></li>
-                <li><a class="scrollto" href="#tables-section">Tables</a></li>
-                <li><a class="scrollto" href="#buttons-section">Buttons</a></li>
-                <li><a class="scrollto" href="#video-section">Video</a></li>
-                <li><a class="scrollto" href="#icons-section">Icons</a></li>
+
+                <a class="scrollto" href="#code-section">Editing this Documentation</a>
+                <ul class="nav doc-sub-menu">
+                  <li><a class="scrollto" href="#primary">Editing Primary Colors</a></li>
+                </ul><!--//nav-->
+                </li>
+
               </ul><!--//doc-menu-->
             </nav>
           </div><!--//doc-sidebar-->
