@@ -4,8 +4,8 @@
         "profile": "Profile",
         "people": "People",
         "settings": "Settings",
-        "sendFeedback": "Send Feedback"
-
+        "sendFeedback": "Send Feedback",
+        "subscribe": "Subscribe"
     },
     "header": {
         "home":"Home",
@@ -100,6 +100,12 @@
         "confirmPasswordRequiredError": "This field is required",
         "confirmPasswordEqualNewPasswordError": "Password and confirm password should be equal!"
 
+    },
+    "subscribe": {
+        "title": "Subscribe",
+        "homeButton": "HOME",
+        "subscribeButton": "SUBSCRIBE",
+        "subscribeDescription": "This page is for subscribing to premium."
     },
     "feedback": {
         "textareaPlaceholder": "What do you feel :) ?",
