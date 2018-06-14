@@ -4,6 +4,8 @@ import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import { Map } from 'immutable'
+import Slider from 'rc-slider'
+import 'rc-slider/assets/index.css'
 
 // - Material UI
 import SvgDehaze from 'material-ui-icons/Dehaze'
@@ -33,14 +35,15 @@ import { authorizeActions } from 'store/actions'
 import { IHomeHeaderComponentProps } from './IHomeHeaderComponentProps'
 import { IHomeHeaderComponentState } from './IHomeHeaderComponentState'
 
-const styles = {
+const styles = (theme: any) => ({
   root: {
     backgroundColor: '#a5792a'
   },
   flex: {
     flex: 1
-  }
-}
+  },
+
+})
 
 // - Create HomeHeader component class
 export class HomeHeaderComponent extends Component<IHomeHeaderComponentProps, IHomeHeaderComponentState> {
@@ -49,8 +52,15 @@ export class HomeHeaderComponent extends Component<IHomeHeaderComponentProps, IH
     avatarStyle: {
       margin: 5,
       cursor: 'pointer'
-    }
+    },slider: { zIndex: '9999' },
+  }
 
+  sliderMarks = {
+      0: { style: { color: 'white' }, label: <strong>Private</strong> },
+      1: { style: { color: 'white' }, label: <strong>Less Private</strong> },
+      2: { style: { color: 'white' }, label: <strong>Not that Private</strong> },
+      3: { style: { color: 'white' }, label: <strong>Public</strong> },
+      4: { style: { color: 'white' }, label: <strong>We are Selling Your Data</strong> }
   }
 
   /**
@@ -177,11 +187,9 @@ export class HomeHeaderComponent extends Component<IHomeHeaderComponentProps, IH
     const { classes , translate, theme} = this.props
     const anchor = theme.direction === 'rtl' ? 'right' : 'left'
     return (
-
-      <AppBar position='fixed' color='secondary'>
+      <AppBar position='fixed' color='secondary' style={{ boxShadow: 'none'}} >
         <Toolbar>
           {/* Left side */}
-
           <IconButton onClick={this.onToggleSidebar} >
             <SvgDehaze color='primary' style={{ cursor: 'pointer' }} />
           </IconButton>
@@ -193,10 +201,11 @@ export class HomeHeaderComponent extends Component<IHomeHeaderComponentProps, IH
           <Hidden smDown>
            <div className={classNames({'homeHeader__title-left': anchor === 'left', 'homeHeader__title-right': anchor === 'right' })}>{this.props.title}</div> 
            </Hidden>
-          </div>
 
+          </div>
           {/* Notification */}
           <div className='homeHeader__right'>
+
             <Manager>
               <Target>
                 {this.props.notifyCount! > 0 ? (
@@ -244,7 +253,9 @@ export class HomeHeaderComponent extends Component<IHomeHeaderComponentProps, IH
           </div>
 
         </Toolbar>
+        <Slider className={'slider'} dots={true} max={4} marks={this.sliderMarks}/>
       </AppBar >
+
     )
   }
 }

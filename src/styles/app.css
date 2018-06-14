@@ -340,7 +340,7 @@ img {
 
 html,
 body {
-  font-family: Verdana, sans-serif;
+  font-family: Roboto, Verdana, sans-serif;
   font-size: 15px;
   line-height: 1.5; }
 
@@ -497,6 +497,12 @@ g__input-underline::after {
   font-weight: 400;
   line-height: 32px;
   margin: 0; }
+
+.slider {
+  width: 80% !important;
+  height: 40px !important;
+  align-self: center;
+  color: white; }
 
 .master__progress {
   position: fixed;
