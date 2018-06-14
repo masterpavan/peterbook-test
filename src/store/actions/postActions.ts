@@ -143,22 +143,17 @@ export const dbUpdatePost = (updatedPost: Map<string, any>, callBack: Function) 
  */
 export const dbDeletePost = (id: string) => {
   return (dispatch: any, getState: Function) => {
-
     dispatch(globalActions.showTopLoading())
-
     const state: Map<string, any> = getState()
     // Get current user id
     let uid: string = state.getIn(['authorize', 'uid'])
-
     // Delete Comments associated with post
     commentService.getComments(id, (comments: postComments) => {
-
       let commentIdArray: Array<String> = Object.keys(comments[id])
       commentIdArray.forEach((commentIdString) => {
         commentService.deleteComment(commentIdString.toString())
       })
     })
-
     // Delete Image associated with post
     postService.getPostById(id).then((post: Post) => {
       if (post.id == null || post.id === undefined) {
@@ -171,7 +166,6 @@ export const dbDeletePost = (id: string) => {
         })
       }
     })
-
     return postService.deletePost(id).then(() => {
       dispatch(deletePost(uid, id))
       dispatch(globalActions.hideTopLoading())
@@ -182,7 +176,6 @@ export const dbDeletePost = (id: string) => {
         dispatch(globalActions.hideTopLoading())
       })
   }
-
 }
 
 /**
