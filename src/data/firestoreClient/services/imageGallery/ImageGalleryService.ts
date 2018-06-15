@@ -22,14 +22,14 @@ export class ImageGalleryService implements IImageGalleryService {
   private readonly storageService: IStorageService
   private readonly serviceProvider: IServiceProvider
 
-  constructor () {
+  constructor() {
     this.serviceProvider = new ServiceProvide()
     this.storageService = this.serviceProvider.createStorageService()
   }
 
   public getImageGallery: (userId: string)
     => Promise<Image[]> = (userId) => {
-      return new Promise<Image[]>((resolve,reject) => {
+      return new Promise<Image[]>((resolve, reject) => {
         let imagesRef = db.doc(`users/${userId}`).collection(`images`)
 
         imagesRef.get().then((snapshot) => {
@@ -42,31 +42,31 @@ export class ImageGalleryService implements IImageGalleryService {
           })
           resolve(parsedData)
         })
-        .catch((error: any) => {
-          reject(new SocialError(error.code, error.message))
-        })
+          .catch((error: any) => {
+            reject(new SocialError(error.code, error.message))
+          })
 
       })
     }
 
   public saveImage: (userId: string, image: Image)
     => Promise<string> = (userId, image) => {
-      return new Promise<string>((resolve,reject) => {
+      return new Promise<string>((resolve, reject) => {
 
         let imageRef = db.doc(`users/${userId}`).collection(`images`).add(image)
         imageRef.then((result) => {
           resolve(result.id!)
         })
-        .catch((error: any) => {
-          reject(new SocialError(error.code, error.message))
-        })
+          .catch((error: any) => {
+            reject(new SocialError(error.code, error.message))
+          })
 
       })
     }
 
   public deleteImage: (userId: string, imageId: string)
     => Promise<void> = (userId, imageId) => {
-      return new Promise<void>((resolve,reject) => {
+      return new Promise<void>((resolve, reject) => {
         const batch = db.batch()
         const imageRef = db.doc(`users/${userId}/images/${imageId}`)
 
@@ -74,29 +74,29 @@ export class ImageGalleryService implements IImageGalleryService {
         batch.commit().then(() => {
           resolve()
         })
-        .catch((error: any) => {
-          reject(new SocialError(error.code, error.message))
-        })
+          .catch((error: any) => {
+            reject(new SocialError(error.code, error.message))
+          })
 
       })
     }
 
   public uploadImage: (image: any, imageName: string, progressCallback: (percentage: number, status: boolean) => void)
     => Promise<FileResult> = (image, imageName, progressCallback) => {
-      return new Promise<FileResult>((resolve,reject) => {
-        this.storageService.uploadFile(image,imageName,progressCallback)
-        .then((result: FileResult) => {
-          resolve(result)
-        })
-        .catch((error: any) => {
-          reject(new SocialError(error.code, error.message))
-        })
+      return new Promise<FileResult>((resolve, reject) => {
+        this.storageService.uploadFile(image, imageName, progressCallback)
+          .then((result: FileResult) => {
+            resolve(result)
+          })
+          .catch((error: any) => {
+            reject(new SocialError(error.code, error.message))
+          })
       })
     }
 
   public downloadImage: (fileName: string)
     => Promise<string> = (fileName) => {
-      return new Promise<string>((resolve,reject) => {
+      return new Promise<string>((resolve, reject) => {
 
         // Create a reference to the file we want to download
         let starsRef: any = storageRef.child(`images/${fileName}`)
@@ -105,9 +105,32 @@ export class ImageGalleryService implements IImageGalleryService {
         starsRef.getDownloadURL().then((url: string) => {
           resolve(url)
         })
-        .catch((error: any) => {
-          reject(new SocialError(error.code, error.message))
-        })
+          .catch((error: any) => {
+            reject(new SocialError(error.code, error.message))
+          })
       })
     }
+
+  public getImagesId: (
+    uid: string, 
+    imageFullPath: string, 
+    next: (idArray: string[]) => void)
+    => () => void = (uid, imageFullPath, next) => {
+
+      const userCollectionRef = db.collection('users')
+      const userRef = userCollectionRef.doc(uid)
+
+        const userImageCollection = userRef.collection('images').where('imageFullPath', '==', imageFullPath)
+        var imageIdArray: string[] = new Array(0)
+        const unsubscribe = userImageCollection.onSnapshot((snapshot) => {
+          snapshot.forEach((result) => {
+            imageIdArray.push(result.id)
+          })
+        })
+        if (next) {
+          next(imageIdArray)
+        }
+        return unsubscribe
+
+  }
 }

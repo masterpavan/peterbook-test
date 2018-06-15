@@ -14,4 +14,5 @@ export interface IImageGalleryService {
   deleteImage: (userId: string, imageId: string) => Promise<void>
   uploadImage: (file: any, fileName: string, progressCallback: (percentage: number, status: boolean) => void) => Promise<FileResult>
   downloadImage: (fileName: string) => Promise<string>
+  getImagesId: (uid: string, imageFullPath: string, next: (idArray: string[]) => void) => () => void
 }

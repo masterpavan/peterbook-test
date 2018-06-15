@@ -1,5 +1,5 @@
 // - Import react components
-import { firebaseRef, firebaseAuth, db } from 'data/firestoreClient'
+import { fb, firebaseRef, firebaseAuth, db } from 'data/firestoreClient'
 
 import { SocialError } from 'core/domain/common'
 import { Post } from 'core/domain/posts'
@@ -83,8 +83,8 @@ export class PostService implements IPostService {
         db.collection('graphs:users').where('leftNode', '==', currentUserId)
           .get().then((tieUsers) => {
             if (!(tieUsers.size > 0)) {
-                // Get current user posts
-              this.getPostsByUserId(currentUserId,lastPostId, page, limit).then((result) => {
+              // Get current user posts
+              this.getPostsByUserId(currentUserId, lastPostId, page, limit).then((result) => {
                 resolve(result)
               })
             }
@@ -95,7 +95,7 @@ export class PostService implements IPostService {
               const userId = item.data().rightNode
               if (!userIdList.includes(userId)) {
 
-              // Get user tie posts
+                // Get user tie posts
                 this.getPostsByUserId(userId).then((posts) => {
                   userCounter++
                   postList = [
@@ -103,7 +103,7 @@ export class PostService implements IPostService {
                     ...posts.posts
                   ]
                   if (userCounter === tieUsers.size) {
-                  // Get current user posts
+                    // Get current user posts
                     this.getPostsByUserId(currentUserId).then((result) => {
                       postList = [
                         ...postList,
@@ -180,6 +180,39 @@ export class PostService implements IPostService {
             reject(new SocialError(error.code, error.message))
           })
 
+      })
+    }
+
+  public removeCommentFromPost: (postId?: string | null, commentId?: string | null)
+    => Promise<void> = (postId, commentId) => {
+      return new Promise<void>((resolve, reject) => {
+        if (postId === null || postId === undefined || commentId === null || commentId === undefined) {
+          
+        } else {
+
+          const postCollectionRef = db.collection('posts')
+          const postRef = postCollectionRef.doc(postId)
+
+          var count
+          this.getPostById(postId).then((post) => {
+            if (post.commentCounter) {
+              count = post.commentCounter - 1
+              postRef.set({
+                commentCounter: count,
+                comments: {
+                  [commentId]: fb.firestore.FieldValue.delete()
+                }
+              }, { merge: true }
+              )
+            }
+          })
+            .then(() => {
+              resolve()
+            })
+            .catch((error: any) => {
+              reject(new SocialError(error.code, error.message))
+            })
+        }
       })
     }
 

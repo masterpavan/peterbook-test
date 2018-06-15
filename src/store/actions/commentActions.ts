@@ -1,7 +1,7 @@
 // - Import react components
 import moment from 'moment/moment'
 import _ from 'lodash'
-import {Map} from 'immutable'
+import { Map } from 'immutable'
 
 // - Import domain
 import { Comment } from 'src/core/domain/comments'
@@ -18,6 +18,7 @@ import * as postActions from 'store/actions/postActions'
 import * as serverActions from 'store/actions/serverActions'
 
 import { ICommentService } from 'src/core/services/comments'
+import { IPostService } from 'src/core/services/posts'
 import { SocialProviderTypes } from 'src/core/socialProviderTypes'
 import { provider } from 'src/socialEngine'
 import StringAPI from 'src/api/StringAPI'
@@ -30,7 +31,7 @@ import CommentAPI from 'src/api/CommentAPI'
  * Get service providers
  */
 const commentService: ICommentService = provider.get<ICommentService>(SocialProviderTypes.CommentService)
-
+const postService: IPostService = provider.get<IPostService>(SocialProviderTypes.PostService)
 /* _____________ CRUD DB _____________ */
 
 /**
@@ -84,7 +85,7 @@ export const dbAddComment = (ownerPostUserId: string, newComment: Comment, callB
 export const dbFetchComments = (ownerUserId: string, postId: string) => {
   return {
     type: CommentActionType.DB_FETCH_COMMENTS,
-    payload: {postId, ownerUserId}
+    payload: { postId, ownerUserId }
   }
 }
 
@@ -114,11 +115,12 @@ export const dbUpdateComment = (comment: Comment) => {
  */
 export const dbDeleteComment = (id?: string | null, postId?: string) => {
   return (dispatch: any, getState: Function) => {
-
     if (id === undefined || id === null) {
       dispatch(globalActions.showMessage('comment id can not be null or undefined'))
     }
     dispatch(globalActions.showTopLoading())
+
+    postService.removeCommentFromPost(postId, id)
 
     return commentService.deleteComment(id!)
       .then(() => {
@@ -131,7 +133,12 @@ export const dbDeleteComment = (id?: string | null, postId?: string) => {
 
       })
   }
+}
 
+let deleteCommentSupplement = (postId?: string, id?: string | null) => {
+  if (postId && id) {
+    postService.removeCommentFromPost(postId, id)
+  }
 }
 
 /* _____________ CRUD State _____________ */
