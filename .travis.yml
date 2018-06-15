@@ -6,8 +6,10 @@ cache:
     - node_modules
     - build
 script: 
- - cd ./functions && npm test
- - cd .. && npm run build
+ - cd ./functions
+ - npm test
+ - cd ..
+ - npm run build
  - echo "code deploy"
 install: 
  - npm install
