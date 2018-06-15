@@ -116,29 +116,25 @@ export const dbUpdateComment = (comment: Comment) => {
 export const dbDeleteComment = (id?: string | null, postId?: string) => {
   return (dispatch: any, getState: Function) => {
 
-    if (id === undefined) {
+    if (id === undefined || id === null) {
       dispatch(globalActions.showMessage('comment id can not be null or undefined'))
-    }
-    if (id === null) {
-      dispatch(globalActions.showMessage('comment id can not be null or undefined'))
-    }
-    dispatch(globalActions.showTopLoading())
+    } else {
+      dispatch(globalActions.showTopLoading())
+      if (postId) {
+        postService.removeCommentFromPost(postId, id)
+      }
+      return commentService.deleteComment(id!)
+        .then(() => {
+          dispatch(deleteComment(id!, postId!))
+          dispatch(globalActions.hideTopLoading())
 
-    if (postId && id) {
-      postService.removeCommentFromPost(postId, id)
+        }, (error: SocialError) => {
+          dispatch(globalActions.showMessage(error.message))
+          dispatch(globalActions.hideTopLoading())
+
+        })
     }
-    return commentService.deleteComment(id!)
-      .then(() => {
-        dispatch(deleteComment(id!, postId!))
-        dispatch(globalActions.hideTopLoading())
-
-      }, (error: SocialError) => {
-        dispatch(globalActions.showMessage(error.message))
-        dispatch(globalActions.hideTopLoading())
-
-      })
   }
-
 }
 
 /* _____________ CRUD State _____________ */
