@@ -116,7 +116,10 @@ export const dbUpdateComment = (comment: Comment) => {
 export const dbDeleteComment = (id?: string | null, postId?: string) => {
   return (dispatch: any, getState: Function) => {
 
-    if (id === undefined || id === null) {
+    if (id === undefined) {
+      dispatch(globalActions.showMessage('comment id can not be null or undefined'))
+    }
+    if (id === null) {
       dispatch(globalActions.showMessage('comment id can not be null or undefined'))
     }
     dispatch(globalActions.showTopLoading())

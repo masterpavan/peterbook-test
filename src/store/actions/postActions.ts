@@ -147,35 +147,37 @@ export const dbDeletePost = (id: string) => {
     const state: Map<string, any> = getState()
     // Get current user id
     let uid: string = state.getIn(['authorize', 'uid'])
-    // Delete Comments associated with post
-    commentService.getComments(id, (comments: postComments) => {
-      let commentIdArray: Array<String> = Object.keys(comments[id])
-      commentIdArray.forEach((commentIdString) => {
-        commentService.deleteComment(commentIdString.toString())
-      })
-    })
-    // Delete Image associated with post
-    postService.getPostById(id).then((post: Post) => {
-      if (post.id == null || post.id === undefined) {
-        dispatch(globalActions.showMessage('comment id can not be null or undefined'))
-      } else {
-        imageGalleryService.getImagesId(id, post.id, (idArray: string[]) => {
-          idArray.forEach((id) => {
-            imageGalleryService.deleteImage(uid, id)
-          })
-        })
-      }
-    })
+    deletePostSupplement(id, uid)
     return postService.deletePost(id).then(() => {
       dispatch(deletePost(uid, id))
       dispatch(globalActions.hideTopLoading())
-
     })
       .catch((error: SocialError) => {
         dispatch(globalActions.showMessage(error.message))
         dispatch(globalActions.hideTopLoading())
       })
   }
+}
+let deletePostSupplement = (id: string, uid: string) => {
+  // Delete Comments associated with post
+  commentService.getComments(id, (comments: postComments) => {
+    let commentIdArray: Array<String> = Object.keys(comments[id])
+    commentIdArray.forEach((commentIdString) => {
+      commentService.deleteComment(commentIdString.toString())
+    })
+  })
+  // Delete Image associated with post
+  postService.getPostById(id).then((post: Post) => {
+    if (post.id == null || post.id === undefined) {
+      // dispatch(globalActions.showMessage('comment id can not be null or undefined'))
+    } else {
+      imageGalleryService.getImagesId(id, post.id, (idArray: string[]) => {
+        idArray.forEach((id) => {
+          imageGalleryService.deleteImage(uid, id)
+        })
+      })
+    }
+  })
 }
 
 /**
