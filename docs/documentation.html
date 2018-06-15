@@ -53,6 +53,153 @@
         <div class="doc-body">
           <div class="doc-content">
             <div class="content-inner">
+              <section id="repo-section" class="doc-section">
+                <h2 class="section-title">Our Project</h2>
+
+                <div id="repo" class="section-block">
+                  <h6>Our Repo/Code</h6>
+                  <p>
+                    To understand our code, you will need to know how to write in Redux structure. (The link to the redux tutorial is <a href="https://redux.js.org/introduction">here</a>)
+                    The main layers you will need to know in order to understand our codebase are:
+                  </p>
+                  <div>
+                    <ul>
+                        <li>
+                          <strong>Component</strong>: This is where the user interface and most of the front-end rendering part
+                            of the project will be at.
+                        </li>
+                        <li>
+                          <strong>Actions</strong>: This is where states can be changed. The action is just a javascript
+                            objects that will be modified and passed to the store once Action finishes. 
+                        </li>
+                        <li>
+                          <strong>Reducers</strong>: This is where the dispatched actions will be parsed, and returns 
+                          modified states based on what action did. This will allow the Component props to access the changed states.
+                        </li>
+                        <li>
+                          <strong>Services</strong>: This is basically an a helper function for Actions. 
+                        </li>
+                      </ul>
+                  </div>
+                </div>
+                <div id="repo-inside" class="section-block">
+                  <h6>What's inside the Repo?</h6>
+                  <div>
+                    <ul>
+                      <li id="/src/api">
+                        <strong>/src/api</strong>: <p>This directory/folder is responsible for fetching informations in the database 
+                          for you to easily access the contents.<br />
+                        Developers can fetch specific Comment lists, Post lists, and Images by simply calling the functions 
+                        written/built in from the API files.</p>
+                      </li>
+                      <li id="/src/components">
+                        <strong>/src/components</strong>: 
+                        <p>This directory/folder is responsible for the user interface and front-end rendering part of the 
+                          redux structure.
+                          When you are trying to make an edit or debug user interface, you should check here (and 
+                          /src/container). the contents in /src/components are sorted by what they are responsible for - for 
+                          example, the contents inside /src/components/comment will contain components for comment related 
+                          part of the code, and so on with rest of the contents. 
+                        </p>
+                      </li>
+                      <li id="/src/containers">
+                      <strong>/src/containers</strong>:
+                      <p>This directory/folder contains functions that allows component props to be able to connect with states.<br/>
+                         Currently, our repo's container covers the following components: </p>
+                         <div>
+                           <ul>
+                            <li>Pages related to user's informations - Sign Up, Email Verification, Login, Reset Password, Profile</li>
+                            <li>Pages related to static front pages - Homepage, Sidebar, Navigation Bar</li>
+                            <li>Pages related to Social Network contents - Posts, People</li>
+                          </ul>
+                          </div>
+                         <p>
+                           These containers maps dispatch to props and states, and connects in order to trigger an action.
+                         </p>
+                      </li>
+                      <li id="/src/store/">
+                        <strong>/src/store</strong>:
+                        <p>
+                          This directory/folder is responsible for executing Actions and Reducers. The store folder will have sub-
+                          folder named actions and reducers. actions contains all action files that will return an action object,
+                          and then reducers will parse that action - it will check what type of action the actions function returned,
+                          and will make necessary changes in state and return.
+                          For example, let's look at the simple example in <code>/src/store/actions/commentActions.ts</code> starting
+                          at line 185:
+                        </p>
+                        <pre><code class="language-markup">185  export const clearAllData = () => {
+186     return {
+187      type: CommentActionType.CLEAR_ALL_DATA_COMMENT
+188    }
+189  }</code></pre>
+                        <p><br/>This function simply returns an action object of type <i>CLEAR_ALL_DATA_COMMENT</i> The type
+                        <i>CLEAR_ALL_DATA_COMMENT</i> type is defined in <code>/src/constants/commentActionTypes.ts</code> as:
+                        </p>
+                        <pre><code class="language-markup">6  CLEAR_ALL_DATA_COMMENT = 'CLEAR_ALL_DATA_COMMENT',</code></pre>
+                        <p><br/>Now, if we navigate to comment's reducer <code>/src/store/reducers/commentReducer/ts</code>, you
+                        will notice that the reducer file has the following switch case to identify the type of action starting
+                        at line 51:
+                        </p>
+                        <pre><code class="language-markups">23  switch (action.type) {
+51    case CommentActionType.CLEAR_ALL_DATA_COMMENT:
+52      return Map(new CommentState())
+53    default:
+54      return state
+55  }
+                        </code></pre>
+                        <p><br/>The reducer will be able to find out that the action was CLEAR_ALL_DATA_COMMENT, and will make 
+                          an appropriate change to state and return it, in order for component's prop to be able to access
+                          the changed state.
+                        </p>
+                      </li>
+                      <li id="/src/constants">
+                        <strong>/src/constants</strong>: 
+                        <p>This directory/folder is responsible for having type definions and string definitions for us to 
+                          use them while programming. This folder also contains type definitions for Actions when they return.
+                          For example, the type CLEAR_ALL_DATA_COMMENT defined in here will be used throughout the 
+                          <code>/src/store/actions/commentAction.ts</code>
+                        </p>
+                      </li>
+                      <li id="/src/data">
+                        <strong>/src/data</strong>:
+                        <p>This directory/folder is responsible for providing helper functions to Actions, which are inside 
+                          <code>/src/data/firestoreClient/Services</code>. When execution action functions in 
+                          <code>/src/store/actions</code>, they will make a call to functions written in the Services. this
+                          helps you to read the codes more easily, as they are more organized and as a result each files contain
+                          less code overall. 
+                        </p>
+                      </li>
+                      <li id="/src/core">
+                        <strong>/src/core</strong>:
+                        <p>This directory/folder is responsible for having function definitions for the Service functions written
+                          in data (function name, type, and parameters). This is similar to <code>/src/constants</code>, except 
+                          that this folder stores all the function definitions. 
+                        </p>
+                      </li>
+                      <li id="/src/assets">
+                      <strong>/src/assets</strong>:
+                      <p>This directory/folder is responsible for saving the assets that developers will use throughout the code.
+                        You may add more into this folder if you want to use more font, image, or icons. 
+                      </p>
+                      </li>
+                      <li id="/src/models">
+                        <strong>/src/models</strong>:
+                        <p>This folder has same purpose as /src/core.</p>
+                      </li>
+                      <li id="/src/styles">
+                        <strong>/src/styles</strong>:
+                        <p>This directory/folder is responsible for the style of the components and pages.</p>
+                      </li>
+                      <li id="/src/tests">
+                        <strong>/src/tests</strong>:
+                          <p>This directory/folder is responsible for unit tests for the codes we may want to verify that it works 
+                            as intended and bug-free.
+                          </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
               <section id="code-section" class="doc-section">
                 <h2 class="section-title">Editing the UI</h2>
 
@@ -128,6 +275,49 @@
                       </div><!--//code-block-->
                     </div><!--//section-block-->
               </section><!--//doc-section-->
+              <section id="component-add-section" class="doc-section">
+                  <h2 class="section-title">Custom Components</h2>
+
+                  <div id="component-add" class="section-block">
+                    <h6>Add New Component</h6>
+                    <p>If you have a custom component that you wish to include in the codebase, you can do so by
+                      using npm (Node Package Manager).</p>
+                    <p>
+                      Assuming the npm is installed in your machine, go to <a href="https://www.npmjs.com/" target="_blank">npm site</a> 
+                      and search for the package you wish to install. 
+                    </p>
+                    <p>
+                      Once you found the package, open the terminal and navigate to the peterbook directory. Then install 
+                      the component by typing the following in the command:
+                    </p>
+                    <code>(sudo) npm install --save <i>component-name</i></code>
+                    <p>
+                      <br/>The <code>--save</code> option is needed in order to include the package in the package.json 
+                      file's dependencies automatically 
+                      (<a href="https://stackoverflow.com/questions/19578796/what-is-the-save-option-for-npm-install" target="_blank">Source</a>)
+                    </p>
+                  </div>
+
+                  <div id="component-check" class="section-block">
+                    <h6>Check if Component was Added</h6>
+                    <p>
+                      Once the installation is complete, you can use the installed package just like any other components. 
+                      To see if the package was successfully installed in package.json's dependencies, check:
+                    </p>
+                    <div>
+                      <a href="assets/images/package_dependencies_1.png" data-title="Package_Install_Checklist1" data-toggle="lightbox"><img class="img-responsive" src="assets/images/package_dependencies_1.png" alt="screenshot" style="max-width: 480px"/></a>
+                      <p>
+                        Is package type added on dependencies similar to highlight on image?<br/><br/>
+                      </p>
+                    </div>
+                    <div>
+                        <a href="assets/images/package_dependencies_2.png" data-title="Package_Install_Checklist2" data-toggle="lightbox"><img class="img-responsive" src="assets/images/package_dependencies_2.png" alt="screenshot" style="max-width: 480px"/></a>
+                        <p>
+                          Is package added on dependencies similar to highlight on image?<br/><br/>
+                        </p>
+                    </div>
+                  </div>
+              </section>
               </section><!--//doc-section-->
             </div><!--//content-inner-->
           </div><!--//doc-content-->
@@ -135,11 +325,21 @@
           <div class="doc-sidebar hidden-xs">
             <nav id="doc-nav">
               <ul id="doc-menu" class="nav doc-menu" data-spy="affix">
+                <a class="scrollto" href="#repo-section">Our Project</a>
+                <ul class="nav doc-sub-menu">
+                  <li><a class="scrollto" href="#repo">Our Repo/Code</a></li>
+                  <li><a class="scrollto" href="#repo-inside">What's inside the Repo?</a></li>
+                </ul>
                 <a class="scrollto" href="#code-section">Editing the UI</a>
                 <ul class="nav doc-sub-menu">
                   <li><a class="scrollto" href="#primary">Editing Primary Colors</a></li>
                   <li><a class="scrollto" href="#sidemenu">Editing the Sidebar Menu</a></li>
                 </ul><!--//nav-->
+                <a class="scrollto" href="#component-add-section">Custom Components</a>
+                <ul class="nav doc-sub-menu">
+                  <li><a class="scrollto" href="#component-add">Add new Component</a></li>
+                  <li><a class="scrollto" href="#component-check">Check if Component was Added</a></li>
+                </ul>
                 </li><a class="scrollto" href="#code-section">Editing this Documentation</a>
                 <ul class="nav doc-sub-menu">
                   <li><a class="scrollto" href="#primary">Editing Primary Colors</a></li>
