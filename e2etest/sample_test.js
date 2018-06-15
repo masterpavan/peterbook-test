@@ -54,10 +54,10 @@ module.exports = {
         client.pause(2000);
 
         // Get the Post new post tag to verify that we've sucessfully logged in.
-        client.waitForElementVisible('//*[@id="master"]/div[3]/div/main/div/div/div/div/div[1]/div[1]/div/div[2]/h3', 1000); // Don't know why this is failing (sometimes)
+        client.waitForElementVisible('//*[@id="master"]/div[3]/div/main/div/div/div/div/div[1]/div[1]/div/div[2]/h3', 1000);
         client.useCss();
         
-        client.verify.containsText('[.^="MuiTypography-root-"]', 'What\'s new with you?');  // This is not working <- need a person who actually know CSS
+        client.verify.containsText('[class^="MuiTypography-root-"]', 'PeterBook');
     },
 
     // Continue with other testing; login has already been Done
@@ -91,10 +91,73 @@ module.exports = {
         client.click('//*[@id="master"]/div[3]/div/main/div/div/div/div/div[3]/div[2]/div[3]/div[2]/button');
 
         client.click('//*[@id="master"]/div[3]/div/main/div/div/div/div/div[3]/div[2]/div[4]/div[3]/div/div/div[1]/div[2]/span[2]/div/div');
-        client.pause(5000);
-        client.setValue('//*[@id="master"]/div[3]/div/main/div/div/div/div/div[2]/div/div[4]/div[2]/div/div/div[1]/div[2]/span[2]/div/div/div/textarea[3]', 'test');
+
+        client.useCss()
+        client.waitForElementVisible('[class^="Textarea-textarea-"]', 2000);
+        client.setValue('[class^="Textarea-textarea-"]', 'testComment');
+        client.useXpath()
+        client.click('//*[@id="master"]/div[3]/div/main/div/div/div/div/div[3]/div[2]/div[4]/div[2]/div/div/div[2]/button');
+        
         client.pause(5000);
 
+        client.end();
+    },
+
+        'Add a post' : function (client) {
+
+        client.url('http://localhost:3000/login');
+
+        client.useCss();
+
+        // Check if the localhost was sucessfully loaded
+        client.waitForElementVisible('body', 1000);
+        client.assert.title('React Social Network');
+
+        // Pause to fully load the page
+        client.pause(2000);
+        
+        // Check if the page is fully loaded
+        client.assert.visible('h2.zoomOutLCorner');
+        
+        // Login with invalid credentials
+        client.setValue('input[name=emailInput]', 'hduwadi@ucsd.edu');
+        client.setValue('input[name=passwordInput]', '123456');
+        client.useXpath();
+        client.click('//*[@id="master"]/div[3]/div/div/div/form/div/div[5]/div[2]/button');
+        
+        // Wait for the login process to load
+        client.pause(2000);
+
+        // Get the Post new post tag to verify that we've sucessfully logged in.
+        client.waitForElementVisible('//*[@id="master"]/div[3]/div/main/div/div/div/div/div[1]/div[1]/div/div[2]/h3', 1000);
+        client.useCss();
+        
+        client.verify.containsText('[class^="MuiTypography-root-"]', 'PeterBook');
+
+        //
+        client.pause(1000);
+
+        // Click 'What's new with you' button to create a post
+        client.useXpath();
+        client.click('//*[@id="master"]/div[3]/div/main/div/div/div[1]/div/div[1]/div[1]/div/div[2]/h3');
+        client.pause(1000);
+
+        // Write a string on a post
+        client.useCss();
+        client.waitForElementVisible('[class^="Textarea-textarea-"]', 2000);
+        client.setValue('[class^="Textarea-textarea-"]', 'e2e testing');
+
+        // Click post button to create a post
+        client.useXpath();
+        client.click('/html/body/div[3]/div[2]/div[2]/button[2]/span');
+        client.pause(1000);
+        
+        // Check if the page is loaded correctly
+        client.useCss();
+        client.assert.visible('[class^="MuiTypography-root-"]');
+
+        ///*[@id="master"]/div[3]/div/main/div/div/div[1]/div/div[2]/div/div[1]
+        client.pause(3000);
         client.end();
     }
 
