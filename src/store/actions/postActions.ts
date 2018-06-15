@@ -2,6 +2,7 @@
 import { Post } from 'src/core/domain/posts'
 import { SocialError } from 'src/core/domain/common'
 import { Map } from 'immutable'
+import { postComments } from 'models/comments/commentTypes'
 
 // - Import utility components
 import moment from 'moment/moment'
@@ -13,6 +14,8 @@ import { PostActionType } from 'constants/postActionType'
 import * as globalActions from 'store/actions/globalActions'
 
 import { IPostService } from 'src/core/services/posts'
+import { ICommentService } from 'src/core/services/comments'
+import { IImageGalleryService } from 'src/core/services/imageGallery'
 import { SocialProviderTypes } from 'src/core/socialProviderTypes'
 import { provider } from 'src/socialEngine'
 
@@ -20,7 +23,8 @@ import { provider } from 'src/socialEngine'
  * Get service providers
  */
 const postService: IPostService = provider.get<IPostService>(SocialProviderTypes.PostService)
-
+const commentService: ICommentService = provider.get<ICommentService>(SocialProviderTypes.CommentService)
+const imageGalleryService: IImageGalleryService = provider.get<IImageGalleryService>(SocialProviderTypes.ImageGalleryService)
 /* _____________ CRUD DB _____________ */
 
 /**
@@ -28,7 +32,7 @@ const postService: IPostService = provider.get<IPostService>(SocialProviderTypes
  */
 export let dbAddPost = (newPost: Post, callBack: Function) => {
   return (dispatch: any, getState: Function) => {
-    const state: Map<string, any>  = getState()
+    const state: Map<string, any> = getState()
     let uid: string = state.getIn(['authorize', 'uid'])
     let post: Post = {
       postTypeId: 0,
@@ -71,7 +75,7 @@ export const dbAddImagePost = (newPost: Post, callBack: Function) => {
   return (dispatch: any, getState: Function) => {
 
     dispatch(globalActions.showTopLoading())
-    const state: Map<string, any>  = getState()
+    const state: Map<string, any> = getState()
     let uid: string = state.getIn(['authorize', 'uid'])
     let post: Post = {
       postTypeId: 1,
@@ -139,24 +143,41 @@ export const dbUpdatePost = (updatedPost: Map<string, any>, callBack: Function) 
  */
 export const dbDeletePost = (id: string) => {
   return (dispatch: any, getState: Function) => {
-
     dispatch(globalActions.showTopLoading())
-
-    const state: Map<string, any>  = getState()
+    const state: Map<string, any> = getState()
     // Get current user id
     let uid: string = state.getIn(['authorize', 'uid'])
-
+    deletePostSupplement(id, uid)
     return postService.deletePost(id).then(() => {
       dispatch(deletePost(uid, id))
       dispatch(globalActions.hideTopLoading())
-
     })
       .catch((error: SocialError) => {
         dispatch(globalActions.showMessage(error.message))
         dispatch(globalActions.hideTopLoading())
       })
   }
-
+}
+let deletePostSupplement = (id: string, uid: string) => {
+  // Delete Comments associated with post
+  commentService.getComments(id, (comments: postComments) => {
+    let commentIdArray: Array<String> = Object.keys(comments[id])
+    commentIdArray.forEach((commentIdString) => {
+      commentService.deleteComment(commentIdString.toString())
+    })
+  })
+  // Delete Image associated with post
+  postService.getPostById(id).then((post: Post) => {
+    if (post.id == null || post.id === undefined) {
+      // dispatch(globalActions.showMessage('comment id can not be null or undefined'))
+    } else {
+      imageGalleryService.getImagesId(id, post.id, (idArray: string[]) => {
+        idArray.forEach((id) => {
+          imageGalleryService.deleteImage(uid, id)
+        })
+      })
+    }
+  })
 }
 
 /**
@@ -164,7 +185,7 @@ export const dbDeletePost = (id: string) => {
  */
 export const dbGetPosts = (page: number = 0, limit: number = 10) => {
   return (dispatch: any, getState: Function) => {
-    const state: Map<string, any>  = getState()
+    const state: Map<string, any> = getState()
     const stream: Map<string, any> = state.getIn(['post', 'stream'])
     const lastPageRequest = stream.get('lastPageRequest')
     const lastPostId = stream.get('lastPostId')
@@ -179,7 +200,7 @@ export const dbGetPosts = (page: number = 0, limit: number = 10) => {
         // Store last post Id
         dispatch(lastPostStream(result.newLastPostId))
 
-        let parsedData: { [userId: string]: {[postId: string]: Post} } = {}
+        let parsedData: { [userId: string]: { [postId: string]: Post } } = {}
         result.posts.forEach((post) => {
           const postId = Object.keys(post)[0]
           const postData = post[postId]
@@ -209,10 +230,10 @@ export const dbGetPosts = (page: number = 0, limit: number = 10) => {
  */
 export const dbGetPostsByUserId = (userId: string, page: number = 0, limit: number = 10) => {
   return (dispatch: any, getState: Function) => {
-    const state: Map<string, any>  = getState()
-    const {profile} = state.get('post')
-    const lastPageRequest = state.getIn(['post','profile', userId, 'lastPageRequest'], -1 )
-    const lastPostId = state.getIn(['post','profile', userId, 'lastPostId'], '' )
+    const state: Map<string, any> = getState()
+    const { profile } = state.get('post')
+    const lastPageRequest = state.getIn(['post', 'profile', userId, 'lastPageRequest'], -1)
+    const lastPostId = state.getIn(['post', 'profile', userId, 'lastPostId'], '')
 
     let uid: string = state.getIn(['authorize', 'uid'])
 
@@ -226,7 +247,7 @@ export const dbGetPostsByUserId = (userId: string, page: number = 0, limit: numb
         // Store last post Id
         dispatch(lastPostProfile(userId, result.newLastPostId))
 
-        let parsedData: { [userId: string]: {[postId: string]: Post} } = {}
+        let parsedData: { [userId: string]: { [postId: string]: Post } } = {}
         result.posts.forEach((post) => {
           const postId = Object.keys(post)[0]
           const postData = post[postId]
@@ -324,7 +345,7 @@ export const deletePost = (uid: string, id: string) => {
 /**
  * Add a list of post
  */
-export const addPosts = (userPosts: { [userId: string]: {[postId: string]: Post} }) => {
+export const addPosts = (userPosts: { [userId: string]: { [postId: string]: Post } }) => {
   return {
     type: PostActionType.ADD_LIST_POST,
     payload: { userPosts }
@@ -377,7 +398,7 @@ export const notMoreDataStream = () => {
 export const requestPageStream = (page: number) => {
   return {
     type: PostActionType.REQUEST_PAGE_STREAM,
-    payload: { page}
+    payload: { page }
   }
 
 }
@@ -388,7 +409,7 @@ export const requestPageStream = (page: number) => {
 export const lastPostStream = (lastPostId: string) => {
   return {
     type: PostActionType.LAST_POST_STREAM,
-    payload: { lastPostId}
+    payload: { lastPostId }
   }
 
 }
@@ -409,7 +430,7 @@ export const hasMoreDataProfile = () => {
 export const notMoreDataProfile = (userId: string) => {
   return {
     type: PostActionType.NOT_MORE_DATA_PROFILE,
-    payload: {userId}
+    payload: { userId }
   }
 
 }
@@ -420,7 +441,7 @@ export const notMoreDataProfile = (userId: string) => {
 export const requestPageProfile = (userId: string, page: number) => {
   return {
     type: PostActionType.REQUEST_PAGE_PROFILE,
-    payload: {userId, page}
+    payload: { userId, page }
   }
 
 }
@@ -431,7 +452,7 @@ export const requestPageProfile = (userId: string, page: number) => {
 export const lastPostProfile = (userId: string, lastPostId: string) => {
   return {
     type: PostActionType.LAST_POST_PROFILE,
-    payload: { userId, lastPostId}
+    payload: { userId, lastPostId }
   }
 
 }
