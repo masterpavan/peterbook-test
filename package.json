@@ -11,7 +11,7 @@
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts-ts build",
     "build": "npm-run-all build-css build-js",
-    "test": "react-scripts-ts test --env=jsdom",
+    "test": "./node_modules/.bin/mocha --reporter spec",
     "eject": "react-scripts-ts eject",
     "deploy:firebase": "npm run build && firebase deploy"
   },
