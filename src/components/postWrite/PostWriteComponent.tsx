@@ -535,7 +535,7 @@ export class PostWriteComponent extends Component<IPostWriteComponentProps, IPos
               {translate!('post.cancelButton')}
             </Button>
             <Button
-              color='primary'
+              color='secondary'
               disableFocusRipple={true}
               disableRipple={true}
               onClick={this.handlePost}
