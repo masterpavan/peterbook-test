@@ -318,6 +318,74 @@
                     </div>
                   </div>
               </section>
+
+              <section id="inner-circle" class="doc-section">
+                  <h2 class="section-title">Privacy Idea: The Inner Circle</h2>
+                  <div id="ic-overview" class="section-block">
+                    <h6>Overview</h6>
+                    <a href="assets/images/inner-circle.png" data-title="Package_Install_Checklist2" data-toggle="lightbox"><img class="img-responsive" src="assets/images/inner-circle.png" alt="screenshot" style="max-width: 780px"/></a>
+                    <p>
+                      (not actually implemented)
+                    </p>
+                    <p>
+                      The inner circle will be the way the peterbook determines the level of access to user’s personal information, 
+                      or private contents to group of other users. We were able to come up with an idea of how to do this, but did 
+                      not have enough time to actually implement it.
+                    </p>
+                    <p>
+                      - There will be 4 different layers of access among different users:
+                      <ul>
+                        <li>Only written posts (can only access the user’s written posts)</li>
+                        <li>Only written posts and image posts (can access user’s image posts and written posts)</li>
+                        <li>Access to posts and basic profile information (first name, last name, userID only)</li>
+                        <li>Grant all access (email, my friend lists, phone numbers, etc)</li>
+                      </ul>
+                      Comment will be accessible regardless of level of access.
+                    </p>
+                    <p>
+                        When you send a friend request, you will always be requesting with 1st layer.
+                        When you receive a friend request, you will be able to choose which level of 
+                        layer you wish to group this user in. It will be done with the slider just like the image.                        
+                    </p>
+                  </div>
+                  <div id="ic-post" class="section-block">
+                    <h6>How this affects Users</h6>
+                    <p>
+                      When user makes a post, he/she will be able to select individual users whom you wish to share with. This post 
+                      will have a different colored border around the post so that people with an access will be able to distinguish the difference easily. 
+                      <ul>
+                        <li>User will be able to select people categorized in different layers when doing this. </li>
+                        <li>
+                          If user moves the slider, then friends in outer circle will be hidden
+                          <ul>
+                            <li>To select a friend from the circle, simply click them</li>
+                            <li>User should also be able to manually write their names if he/she wishes to.</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </p>
+                  </div>
+                  <div id="ic-implementation" class="section-block">
+                    <h6>Implementation Approach</h6>
+                    <ul>
+                      <li>
+                        This will involve a change in database, mostly on the database.
+                      </li>
+                      <li>
+                        Comments are irrelevant, so it should not need to be touched
+                      </li>
+                      <li>
+                        Posts collection will need few more fields/attributes: 
+                      </li>
+                      <li>
+                        UserInfo collection will need more fields/attributes:
+                      </li>
+                      <li>
+                        Our current Users’ circle is not enough. It will need massive overhaul:
+                      </li>
+                    </ul>
+                  </div>
+              </section>
               </section><!--//doc-section-->
             </div><!--//content-inner-->
           </div><!--//doc-content-->
@@ -339,6 +407,12 @@
                 <ul class="nav doc-sub-menu">
                   <li><a class="scrollto" href="#component-add">Add new Component</a></li>
                   <li><a class="scrollto" href="#component-check">Check if Component was Added</a></li>
+                </ul>
+                <a class="scrollto" href="#inner-circle">Privacy Idea: The Inner Circle</a>
+                <ul class="nav doc-sub-menu">
+                  <li><a class="scrollto" href="#ic-overview">Overview</a></li>
+                  <li><a class="scrollto" href="#ic-post">How this affects Users</a></li>
+                  <li><a class="scrollto" href="#ic-implementation">Implementation Approach</a></li>
                 </ul>
                 </li><a class="scrollto" href="#code-section">Editing this Documentation</a>
                 <ul class="nav doc-sub-menu">
