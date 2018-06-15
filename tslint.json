@@ -10,16 +10,15 @@
         "curly": true,
         "eofline": false,
         "forin": true,
-        "ter-indent": [
+        "interface-name": [false, "always-prefix"],
+        "indent": [
             true,
             2,
             {
                 "SwitchCase": 1
             }
         ],
-        "interface-name": [false, "always-prefix"],
         "jsdoc-format": true,
-        "no-extra-boolean-cast": true,
         "jsx-self-close": false,
         "jsx-no-lambda": false,
         "jsx-no-multiline-js": false,
