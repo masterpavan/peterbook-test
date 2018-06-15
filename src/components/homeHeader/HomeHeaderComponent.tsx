@@ -57,10 +57,9 @@ export class HomeHeaderComponent extends Component<IHomeHeaderComponentProps, IH
 
   sliderMarks = {
       0: { style: { color: 'white' }, label: <strong>Private</strong> },
-      1: { style: { color: 'white' }, label: <strong>Less Private</strong> },
-      2: { style: { color: 'white' }, label: <strong>Not that Private</strong> },
+      1: { style: { color: 'white' }, label: <strong>Inner Circle</strong> },
+      2: { style: { color: 'white' }, label: <strong>All Friends</strong> },
       3: { style: { color: 'white' }, label: <strong>Public</strong> },
-      4: { style: { color: 'white' }, label: <strong>We are Selling Your Data</strong> }
   }
 
   /**
@@ -253,7 +252,7 @@ export class HomeHeaderComponent extends Component<IHomeHeaderComponentProps, IH
           </div>
 
         </Toolbar>
-        <Slider className={'slider'} dots={true} max={4} marks={this.sliderMarks}/>
+        <Slider className={'slider'} dots={true} max={3} marks={this.sliderMarks}/>
       </AppBar >
 
     )
