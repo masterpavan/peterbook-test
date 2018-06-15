@@ -183,32 +183,36 @@ export class PostService implements IPostService {
       })
     }
 
-  public removeCommentFromPost: (postId: string, commentId: string)
+  public removeCommentFromPost: (postId?: string | null, commentId?: string | null)
     => Promise<void> = (postId, commentId) => {
       return new Promise<void>((resolve, reject) => {
+        if (postId === null || postId === undefined || commentId === null || commentId === undefined) {
+          
+        } else {
 
-        const postCollectionRef = db.collection('posts')
-        const postRef = postCollectionRef.doc(postId)
+          const postCollectionRef = db.collection('posts')
+          const postRef = postCollectionRef.doc(postId)
 
-        var count
-        this.getPostById(postId).then((post) => {
-          if (post.commentCounter) {
-            count = post.commentCounter - 1
-            postRef.set({
-              commentCounter: count,
-              comments: {
-                [commentId]: fb.firestore.FieldValue.delete()
-              }
-            }, { merge: true }
-            )
-          }
-        })
-          .then(() => {
-            resolve()
+          var count
+          this.getPostById(postId).then((post) => {
+            if (post.commentCounter) {
+              count = post.commentCounter - 1
+              postRef.set({
+                commentCounter: count,
+                comments: {
+                  [commentId]: fb.firestore.FieldValue.delete()
+                }
+              }, { merge: true }
+              )
+            }
           })
-          .catch((error: any) => {
-            reject(new SocialError(error.code, error.message))
-          })
+            .then(() => {
+              resolve()
+            })
+            .catch((error: any) => {
+              reject(new SocialError(error.code, error.message))
+            })
+        }
       })
     }
 

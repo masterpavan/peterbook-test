@@ -115,15 +115,13 @@ export const dbUpdateComment = (comment: Comment) => {
  */
 export const dbDeleteComment = (id?: string | null, postId?: string) => {
   return (dispatch: any, getState: Function) => {
-
     if (id === undefined || id === null) {
       dispatch(globalActions.showMessage('comment id can not be null or undefined'))
     }
     dispatch(globalActions.showTopLoading())
 
-    if (postId && id) {
-      postService.removeCommentFromPost(postId, id)
-    }
+    postService.removeCommentFromPost(postId, id)
+
     return commentService.deleteComment(id!)
       .then(() => {
         dispatch(deleteComment(id!, postId!))
@@ -135,7 +133,12 @@ export const dbDeleteComment = (id?: string | null, postId?: string) => {
 
       })
   }
+}
 
+let deleteCommentSupplement = (postId?: string, id?: string | null) => {
+  if (postId && id) {
+    postService.removeCommentFromPost(postId, id)
+  }
 }
 
 /* _____________ CRUD State _____________ */
