@@ -31,30 +31,40 @@
 <body class="body-blue">
   <div class="page-wrapper">
     <!-- ******Header****** -->
+    <header id="header" class="header">
+      <div class="container">
+        <div class="branding">
+          <h1 class="logo">
+            <a href="index.html">
+              <span class="text-highlight">Infinate</span><span class="text-bold">Payments</span>
+            </a>
+          </h1>
+        </div><!--//branding-->
+      </div><!--//container-->
+    </header><!--//header-->
     <div class="doc-wrapper">
       <div class="container">
         <div class="doc-body">
           <div class="doc-content">
             <div class="content-inner">
-           <form action="your-server-side-code" method="POST">
-  <script
-    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    data-key="pk_test_qOxi19GS9ISZ6ioFhGkjTk4c"
-    data-amount="099"
-    data-name="Peterbook"
-    data-description="Subscribe to get rid of ads"
-    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-    data-locale="auto">
-  </script>
-					</form> 
+              <form action="your-server-side-code" method="POST">
+                <script
+                                                   src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                                                                 data-key="pk_test_qOxi19GS9ISZ6ioFhGkjTk4c"
+                                                                                                 data-amount="099"
+                                                                                                 data-name="Peterbook"
+                                                                                                 data-description="Subscribe to get rid of ads"
+                                                                                                 data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                                                                                 data-locale="auto">
+                </script>
+              </form> 
+              <p></p>
+              <div class="cta-container">
+                <a class="btn btn-primary btn-cta" href="https://peterbook-test.firebaseapp.com" target="">
+                  <i class="fafa-cloud-download"></i>Back to Peterbook</a>
+              </div><!--//cta-container-->
             </div><!--//content-inner-->
           </div><!--//doc-content-->
-          <div class="doc-sidebar hidden-xs">
-            <nav id="doc-nav">
-              <ul id="doc-menu" class="nav doc-menu" data-spy="affix">
-              </ul><!--//doc-menu-->
-            </nav>
-          </div><!--//doc-sidebar-->
         </div><!--//doc-body-->              
       </div><!--//container-->
     </div><!--//doc-wrapper-->
