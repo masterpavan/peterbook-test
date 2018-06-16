@@ -239,14 +239,14 @@ export class HomeComponent extends Component<IHomeComponentProps, IHomeComponent
         </ListItemIcon>
         <ListItemText inset primary={translate!('sidebar.sendFeedback')} />
       </MenuItem>
-      <NavLink to='/subscribe'>
+      <a href='//masterpavan.com/peterbook-test/subscribe.html'>
         <MenuItem style={{ color: 'rgb(117, 117, 117)' }}>
           <ListItemIcon>
             <SvgAccountBalance />
           </ListItemIcon>
           <ListItemText inset primary={translate!('sidebar.subscribe')} />
         </MenuItem>
-      </NavLink>
+      </a>
       </>
     )
 
