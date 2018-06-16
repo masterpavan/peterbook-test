@@ -13,7 +13,7 @@ export interface IPostService {
   deletePost: (postId: string) => Promise<void>
   getPosts: (currentUserId: string,lastPostId: string, page: number, limit: number)
   => Promise<{posts: {[postId: string]: Post }[], newLastPostId: string}>
-
+  removeCommentFromPost: (postId?: string | null, commentId?: string | null) => Promise<void>
   /**
    * Get list of post by user identifier
    */
