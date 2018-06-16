@@ -295,26 +295,16 @@
                                         </div><!--//code-block-->
                                     </div><!--//section-block-->
 
-                                    <div id="advertisements" class="section-block">
+                                    <div id="Slide Payment Integration" class="section-block">
                                         <div class="code-block">
-                                            <h6>Editing the Advertisements</h6>
+                                            <h6>Editing the Slide Payment Integration</h6>
                                             <p>
-                                                You can find the primary application colors in two files: 
-                                            <p style="font-family:veranda;">	
-                                                <code>src/config/environment.dev.ts</code>
+                                            Using the Infinate Developer gmail account (see  <a href="https://masterpavan.com/peterbook-test/start.html" title="Quick Start">Quick Start</a> for details on using that account)
+                                            you can sign in to <a href="https://dashboard.stripe.com/test/dashboard" ltitle="Stripe">Stripe</a>  
+                                            to see how the payments are doing. It's set up on <a href="https://masterpavan.com/peterbook-test/subscribe.html" ltitle="Subscribe">subscribe.html</a>  
+                                            pat of this site. You can edit the code in the same file (docs/subscribe.html) which incorporates the basic html code snippet from Stripe. 
+                                            More information on how to create React components can be found on their site. 
                                             </p>
-                                            <p style="font-family:veranda;">	
-                                                <code>src/config/environment.prod.ts</code>
-                                            </p>
-                                            <p>
-                                                And at about lines 19 and 20 you should edit the primary and secondary colors
-                                            </p>
-                                            <pre><code class="language-javascript">&lt;script&gt; 
-  theme: {
-    primaryColor: '#ffffff',//colors based on Facebook pallete
-    secondaryColor: '#3B5998'
-  }
-&lt;/script&gt;</code></pre>
                                         </div><!--//code-block-->
                                     </div><!--//section-block-->
                                 </section><!--//doc-section-->
@@ -361,9 +351,69 @@
                                         </div>
                                     </div>
                                 </section>
-
+                                <section id="conveyor-belt" class="doc-section">
+                                    <h2 class="section-title">Our Conveyor Belt</h2>
+                                    <div id="cb-overview" class="section-block">
+                                      <h6>Overview</h6>
+                                      <p>
+                                        Our conveyor belt has changed a lot since we first set it up. Peterbook's conveyor belt was initially using the following
+                                        tools:
+                                      </p>
+                                      <ul>
+                                        <li>RAIL: Google Lighthouse</li>
+                                        <li>Code: React</li>
+                                        <li>Server Side: Firebase</li>
+                                        <li>Code Complexity & Quality: Code Climate </li>
+                                        <li>Testing: Jest (Changed)</li>
+                                        <li>Documentation: JSDoc (Changed)</li>
+                                        <li>CI Pipeline: Travis CI</li>
+                                        <li>Style Enforcement: ESLint</li>
+                                        <li>Team Organization: Trello</li>
+                                      </ul>
+                                      <p>
+                                        Our finalized conveyor belt process should look like this (for more information, go 
+                                        <a href="https://docs.google.com/document/d/1Gl3e1LG1cCFMju-11V-oFuo5w0mlEy6sR4AVOxCKTpA/edit?ts=5b2436e2" target="_blank">Here</a>):
+                                      </p>
+                                      <a href="assets/images/conveyor-belt.png" data-title="Package_Install_Checklist2" data-toggle="lightbox"><img class="img-responsive" src="assets/images/conveyor-belt.png" alt="screenshot" style="max-width: 840px"/></a>
+                                    </div>
+                                  </section>
+                                
+                                <section id="slider" class="doc-section">
+                                  <h2 class="section-title">Security Idea: Slider</h2>
+                                  <div id="slider-overview">
+                                    <br/>
+                                    <a href="assets/images/security-slider.png" data-title="Package_Install_Checklist2" data-toggle="lightbox"><img class="img-responsive" src="assets/images/security-slider.png" alt="screenshot" style="max-width: 920px"/></a>
+                                    <br/>
+                                    <h6>What is Security Slider?</h6>
+                                    <p>
+                                      We came up with the idea of a security slider that would be used by the user to set the security restriction for 
+                                      each individual person that a user associates with. The general idea is to integrate this slider with our 
+                                      “ Social Circle” idea.  When a user accepts a “friend request” the user then will be prompted to select a 
+                                      level of security that they would like to set for this new “ friend” that they have accepted. The slider set all 
+                                      the way to the right( highest level of security), will only allow that friend to view written posts. The next 
+                                      level down( one level to the left) will allow the friend to view images and posts of the user.
+                                    </p> 
+                                    <p>
+                                      There will be four levels of security total, with the slider to the far left allowing the friend to view all information of 
+                                      the user.  We will use this slider information to generate a integer number( 1-4 with 4 being highest level of 
+                                      security) that will be used to implement the inner circle idea in the back end. The security slider for each 
+                                      friend can be edited at anytime should a user choose to update the security levels for that person. However, 
+                                      should a update happen, the friend with modified security levels will only experience those changes from that 
+                                      point forward.
+                                    </p> 
+                                    <p>
+                                      For example, if person  “X”  originally was fully restricted to your profile( meaning could only 
+                                      view posts), and then their security was later updated to a more relaxed level, they would only be able to enjoy 
+                                      the more relaxed levels from that point forward. Meaning they still cannot view  images/ personal info/ext from 
+                                      the past. Likewise, if person X gets set to a more restricted level of security, then they can no longer see the 
+                                      things in the past that they were before able to see, like images for example.( depending on the exact security 
+                                      level set). 
+                                    </p>
+                                  </div>
+                                </section>
+                                
                                 <section id="inner-circle" class="doc-section">
-                                    <h2 class="section-title">Privacy Idea: The Inner Circle</h2>
+                                    <h2 class="section-title">Privacy Idea: Social Circle</h2>
                                     <div id="ic-overview" class="section-block">
                                         <h6>Overview</h6>
                                         <a href="assets/images/inner-circle.png" data-title="Package_Install_Checklist2" data-toggle="lightbox"><img class="img-responsive" src="assets/images/inner-circle.png" alt="screenshot" style="max-width: 780px"/></a>
@@ -387,9 +437,9 @@
                                             Comment will be accessible regardless of level of access. Non-friend users will simply not have any access, regardless
                                             of whether that user is friend of friends<br/></p>
                                         <p>
-                                            When you send a friend request, you will always be requesting with level A.<br/>
+                                            When you send a friend request, you will always be requesting with highest level of security.<br/>
                                             When you receive a friend request, you will be able to choose which level of 
-                                            layer you wish to group this user in. It will be done with the slider just like the image above.                        
+                                            security you wish to group this user in. It will be done with the slider just like the image above.                        
                                         </p>
                                     </div>
                                     <div id="ic-post" class="section-block">
@@ -411,6 +461,45 @@
                                         </ul>
                                     </div>
                                 </section>
+
+                                <section id="additional" class="doc-section">
+                                  <h2 class="section-title">Links to Additional Documents</h2>
+                                  <div id="addi-overview" class="section-block">
+                                    <h6>Overview</h6>
+                                    <p>
+                                      This section will contain additional documents to help you understand peterbook's repo/codebase. These documents are
+                                      written in google doc, so we will give you the link to the google docs.
+                                    </p>
+                                  </div>
+                                  <div id="addi-functions" class="section-block">
+                                    <h6>/functions/ files</h6>
+                                    <p>
+                                      If you wish to know more detailed information about repo's /functions/ folder, click
+                                      <a href="https://docs.google.com/document/d/12UpP-C2zVvudZ_tYg8AWDThra7vU1nsC5_SUQL8r1pY/edit" target="_blank">Here</a>
+                                    </p>
+                                  </div>
+                                  <div id="addi-api" class="section-block">
+                                    <h6>/src/api's files</h6>
+                                    <p>
+                                      If you wish to know more detailed information about repo's /src/api folder, click
+                                      <a href="https://docs.google.com/document/d/1fU00jG8oxbk9oGOa1NuYtohHUNOa_o3QiWzMN6WHAVg/edit" target="_blank">Here</a>
+                                    </p>
+                                  </div>
+                                  <div id="addi-components" class="section-block">
+                                    <h6>/src/component's files</h6>
+                                    <p>
+                                      If you wish to know more detailed information about repo's /src/components folder, click
+                                      <a href="https://docs.google.com/document/d/1xlWznCNUjrrakkDEbIU7W8t7r5GIJ8MWULF-GcDGJqg/edit" target="_blank">Here</a>
+                                    </p>
+                                  </div>
+                                  <div id="addi-knownbugs" class="section-block">
+                                    <h6>Known Bugs</h6>
+                                    <p>
+                                      If you wish to know more detailed information about currently known bugs, click
+                                      <a href="https://docs.google.com/document/d/1k7kGGUVjbbS-SaGz5sXfNGLaMZk-kcGajpg2hzl_tR0/edit" target="_blank">Here</a>
+                                    </p>
+                                  </div>
+                                </section>  
                             </div><!--//content-inner-->
                         </div><!--//doc-content-->
 
@@ -443,16 +532,26 @@
                                         <li><a class="scrollto" href="#component-add">Add new Component</a></li>
                                         <li><a class="scrollto" href="#component-check">Check if Component was Added</a></li>
                                     </ul>
-                                    <a class="scrollto" href="#inner-circle">Privacy Idea: The Inner Circle</a>
+                                    <a class="scrollto" href="#conveyer-belt">Our Conveyor Belt</a>
+                                    <ul  class="nav doc-sub-menu">
+                                      <li><a class="scrollto" href="#cb-overview">Overview</a></li>
+                                    </ul>
+                                    <a class="scrollto" href="#slider">Security Idea: Slider</a>
+                                    <ul class="nav doc-sub-menu">
+                                      <li><a class="scrollto" href="#slider-overview">What is a Security Slider?</a></li>
+                                    </ul>
+                                    <a class="scrollto" href="#inner-circle">Privacy Idea: Social Circle</a>
                                     <ul class="nav doc-sub-menu">
                                         <li><a class="scrollto" href="#ic-overview">Overview</a></li>
                                         <li><a class="scrollto" href="#ic-post">Additional Privacy Features</a></li>
                                     </ul>
-                                    <a class="scrollto" href="#inner-circle">Some Repo Documentation</a>
+                                    <a class="scrollto" href="#additional">Additional Documentations</a>
                                     <ul class="nav doc-sub-menu">
-                                        <li><a class="scrollto" href="#ic-overview">Overview of Documentation</a></li>
-                                        <li><a class="scrollto" href="#ic-post">'functions' folder</a></li>                 <li><a class="scrollto" href="#ic-post">'src/api' folder</a></li>
-                                        <li><a class="scrollto" href="#ic-post">'src/components' folder</a></li>
+                                        <li><a class="scrollto" href="#addi-overview">Overview of Documentation</a></li>
+                                        <li><a class="scrollto" href="#addi-functions">'functions' folder</a></li>                 
+                                        <li><a class="scrollto" href="#addi-api">'src/api' folder</a></li>
+                                        <li><a class="scrollto" href="#addi-components">'src/components' folder</a></li>
+                                        <li><a class="scrollto" href="#addi-knownbugs">Known Bugs</a></li>
                                     </ul>
                                     <!--
 <li><a class="scrollto" href="#code-section">Editing this Documentation</a>
@@ -486,4 +585,3 @@
 
     </body>
 </html> 
-
