@@ -327,7 +327,7 @@ export class CommentGroupComponent extends Component<ICommentGroupComponentProps
     return (
       <div key={postId + '-comments-group'}>
           <Divider />
-        <div style={commentSlides && !commentSlides.isEmpty() ? { display: 'block' } : { display: 'none' }}>
+        <div style={commentSlides && !commentSlides.isEmpty ? { display: 'block' } : { display: 'none' }}>
           <Paper elevation={0} className='animate-top' style={!open ? { display: 'block' } : { display: 'none' }}>
 
             <div style={{ position: 'relative', height: '60px' }} >
