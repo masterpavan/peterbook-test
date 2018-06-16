@@ -70,15 +70,15 @@ module.exports = {
         client.pause(2000);
         
         // Get the post that doesn't have like, and like it
-        client.expect.element('//*[@id="master"]/div[3]/div/main/div/div/div/div/div[3]/div[2]/div[3]/div[1]/button/span[1]/span/span[1]/input').to.not.be.selected;
-        client.click('//*[@id="master"]/div[3]/div/main/div/div/div/div/div[3]/div[2]/div[3]/div[1]/button/span[1]/span/span[1]/input');
-        client.expect.element('//*[@id="master"]/div[3]/div/main/div/div/div/div/div[3]/div[2]/div[3]/div[1]/button/span[1]/span/span[1]/input').to.be.selected;
+        client.expect.element('//*[@id="master"]/div[3]/div/main/div/div/div/div[2]/div/div[4]/div[2]/div[3]/div[1]/button/span[1]/span/span[1]/input').to.not.be.selected;
+        client.click('//*[@id="master"]/div[3]/div/main/div/div/div/div[2]/div/div[4]/div[2]/div[3]/div[1]/button/span[1]/span/span[1]/input');
+        client.expect.element('//*[@id="master"]/div[3]/div/main/div/div/div/div[2]/div/div[4]/div[2]/div[3]/div[1]/button/span[1]/span/span[1]/input').to.be.selected;
         
         client.pause(1000);
         
         // Shouldn't like your own post, so canceled the like.
-        client.click('//*[@id="master"]/div[3]/div/main/div/div/div/div/div[3]/div[2]/div[3]/div[1]/button/span[1]/span/span[1]/input');
-        client.expect.element('//*[@id="master"]/div[3]/div/main/div/div/div/div/div[3]/div[2]/div[3]/div[1]/button/span[1]/span/span[1]/input').to.not.be.selected;
+        client.click('//*[@id="master"]/div[3]/div/main/div/div/div/div[2]/div/div[4]/div[2]/div[3]/div[1]/button/span[1]/span/span[1]/input');
+        client.expect.element('//*[@id="master"]/div[3]/div/main/div/div/div/div[2]/div/div[4]/div[2]/div[3]/div[1]/button/span[1]/span/span[1]/input').to.not.be.selected;
     },
 
     'AddAComment' : function (client) {
