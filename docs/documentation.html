@@ -288,96 +288,6 @@
 253      &#x3C;ListItemText inset primary={translate!(&#x27;sidebar.subscribe&#x27;)} /&#x3E;
 254    &#x3C;/MenuItem&#x3E;
 255  &#x3C;/NavLink&#x3E;</code></pre>
-<<<<<<< HEAD
-                        The icon is imported from the material-ui, which can be found in the <code>node_modules</code> part
-                        of the file directory. As for the text, notice line 253 we pull from 'sidebar.subscribe' to get the
-                        text. This comes from the file <code>src/locale/en.json</code> which contains all the "static" text
-                        for the app. This is the text that doesn't change within the app, like menu titles.
-                      </div><!--//code-block-->
-                    </div><!--//section-block-->
-
-                    <div id="advertisements" class="section-block">
-                      <div class="code-block">
-                        <h6>Editing the Advertisements</h6>
-                        <p>
-                        You can find the primary application colors in two files: 
-                        <p style="font-family:veranda;">	
-                        <code>src/config/environment.dev.ts</code>
-                        </p>
-                        <p style="font-family:veranda;">	
-                        <code>src/config/environment.prod.ts</code>
-                        </p>
-                        And at about lines 19 and 20 you should edit the primary and secondary colors
-                        </p>
-                        <pre><code class="language-javascript">&lt;script&gt; 
-  theme: {
-    primaryColor: '#ffffff',//colors based on Facebook pallete
-    secondaryColor: '#3B5998'
-  }
-&lt;/script&gt;</code></pre>
-                      </div><!--//code-block-->
-                    </div><!--//section-block-->
-                        <div id="codebase" class="section-block">
-                        <h2 class="section-title">Code Base Documentation</h2>
-                        <p><b><a href="component_doc.pdf" target="_blank">Component</a></b></p>
-                        <p>We made use of web components for the front end to customize our UI. This
-                        documentation contains the APIs used for each individual component, their
-                        paremeters, and outputs. Descriptions of their usage and expected appearence
-                        are also mentioned.</p>
-                        <p><b><a href="function_doc.pdf" target="_blank">Function</a></b></p>
-                        <p>This is the API for our submodules. This contains back end functions 
-                        including email, database parsing, messenger, status updates, storage, ect.
-                        The documentation contains these functions' usage and where in the API to
-                        access them. Parameters and expected behaviors are documented as well.</p>
-                        <p><b><a href="source_doc.pdf" target="_blank">Source</a></b></p>
-                        <p>This is the source for the architecture of our code bas. This documentation
-                        contains the JSDoc equivalent of our TypeScript code. Documentation included
-                        functions for our main code as well as their inputs, expected bahavior, and
-                        descriptions of when and how to use them.</p>
-                        </div>
-              </section><!--//doc-section-->
-              </section><!--//doc-section-->
-            </div><!--//content-inner-->
-          </div><!--//doc-content-->
-          <div class="doc-sidebar hidden-xs">
-            <nav id="doc-nav">
-              <ul id="doc-menu" class="nav doc-menu" data-spy="affix">
-                <a class="scrollto" href="#code-section">Editing the UI</a>
-                <ul class="nav doc-sub-menu">
-                  <li><a class="scrollto" href="#primary">Editing Primary Colors</a></li>
-                  <li><a class="scrollto" href="#sidemenu">Editing the Sidebar Menu</a></li>
-                </ul><!--//nav-->
-                </li><a class="scrollto" href="#code-section">Editing this Documentation</a>
-                <ul class="nav doc-sub-menu">
-                  <li><a class="scrollto" href="#primary">Editing Primary Colors</a></li>
-                </ul><!--//nav-->
-                <a class="scrollto" href="#codebase">Code Base Documentation</a>
-                </li>
-              </ul><!--//doc-menu-->
-            </nav>
-          </div><!--//doc-sidebar-->
-        </div><!--//doc-body-->              
-      </div><!--//container-->
-    </div><!--//doc-wrapper-->
-  </div><!--//page-wrapper-->
-
-  <footer id="footer" class="footer text-center">
-    <div class="container">
-      <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
-      <small class="copyright">Designed with <i class="fa fa-heart"></i> by <a href="http://themes.3rdwavemedia.com/" targe="_blank">Xiaoying Riley</a> for developers</small>
-    </div><!--//container-->
-  </footer><!--//footer-->
-
-  <!-- Main Javascript -->          
-  <script type="text/javascript" src="assets/plugins/jquery-1.12.3.min.js"></script>
-  <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>    
-  <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>                                                                
-  <script type="text/javascript" src="assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
-  <script type="text/javascript" src="assets/js/main.js"></script>
-
-</body>
-=======
                                             The icon is imported from the material-ui, which can be found in the <code>node_modules</code> part
                                             of the file directory. As for the text, notice line 253 we pull from 'sidebar.subscribe' to get the
                                             text. This comes from the file <code>src/locale/en.json</code> which contains all the "static" text
@@ -628,7 +538,7 @@
                                     </ul>
                                     <a class="scrollto" href="#slider">Security Idea: Slider</a>
                                     <ul class="nav doc-sub-menu">
-                                      <li><a class="scrollto" href="slider-overview">What is a Security Slider?</a></li>
+                                      <li><a class="scrollto" href="#slider-overview">What is a Security Slider?</a></li>
                                     </ul>
                                     <a class="scrollto" href="#inner-circle">Privacy Idea: Social Circle</a>
                                     <ul class="nav doc-sub-menu">
@@ -674,6 +584,4 @@
         <script type="text/javascript" src="assets/js/main.js"></script>
 
     </body>
->>>>>>> ad0c871ef88d6082d6b083a3d2890ba239a11727
 </html> 
-
